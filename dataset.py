@@ -16,7 +16,7 @@ class Dataset():
         self.train_images = []
         self.test_images = []
         self.val_images = []
-
+        self.num_classes = -1
     def download_dataset(self):
         if not os.path.exists(self.dataset_dir):
 
@@ -41,6 +41,7 @@ class Dataset():
                     c = re.split(r'[0-9]', e.name)[0]
                     self.dataset[c].append(e.name)
 
+        self.num_classes = len(self.dataset.keys())
         return self.dataset
         
 

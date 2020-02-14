@@ -1,7 +1,6 @@
 import re
 import numpy as np
 from tensorflow.python.keras.preprocessing import image
-from keras.applications.vgg16 import preprocess_input
 
 
 
