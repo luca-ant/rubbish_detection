@@ -1,4 +1,3 @@
-
 import tensorflow as tf
 from keras.applications import ResNet50
 from keras.models import Sequential
@@ -29,9 +28,17 @@ def create_nn(num_classes):
 
     return model
 
-def restore_model(model_file):
+def restore_model(model_file, weights_file, num_classes):
 
-    model = tf.keras.models.load_model(model_file)
+    model = create_nn(num_classes)
+
+    model.load_weights(weights_file)
+    
+    #model = tf.keras.models.load_model(model_file)
+
+
+
+
     #opt = Adam(lr=0.001)
     #model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
 

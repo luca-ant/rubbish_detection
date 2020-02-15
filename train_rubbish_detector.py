@@ -1,11 +1,11 @@
 import config
 import os
 import rubbish_detector_model 
-import config
 from preprocess_data import data_generator, load_dataset, split_train_test_val
 
 from keras.engine.saving import load_model, save_model
 from keras.callbacks import ModelCheckpoint, Callback, EarlyStopping
+
 
 
 def train(model, labels, train_images, val_images):
@@ -63,7 +63,7 @@ if __name__ == "__main__":
 
  
     if os.path.isdir(config.model_dir):
-        model = rubbish_detector_model.restore_model(config.model_file)
+        model = rubbish_detector_model.restore_model(config.model_file, config.weights_file, len(labels))
     else:
         model = rubbish_detector_model.create_nn(len(labels))
 
