@@ -30,18 +30,16 @@ def create_nn(num_classes):
 
 def restore_model(model_file, weights_file, num_classes):
 
-    model = create_nn(num_classes)
-
-    model.load_weights(weights_file)
-    
-    #model = tf.keras.models.load_model(model_file)
-
-
-
-
+    #model = create_nn(num_classes)
+    #model.load_weights(weights_file)
     #opt = Adam(lr=0.001)
     #model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
 
+
+
+    model = tf.keras.models.load_model(model_file)
+
+   
     model.summary()
 
     return model
