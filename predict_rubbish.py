@@ -1,20 +1,34 @@
-
+import os
+import numpy as np
 import config
+import rubbish_detector_model
 from tensorflow.python.keras.preprocessing import image
+from preprocess_data import decode_label, load_dataset
 
-def predict_class(model, image_name)
+def predict_class(model, image_name, labels):
 
         img = image.load_img(image_name, target_size=(224, 224, 3))
         img = image.img_to_array(img)
+        img = np.expand_dims(img, axis=0)
+
+        #print(img.shape)
+        #print(model.layers[0].layers[0].input_shape)
+
+        label = model.predict(x=img, batch_size=1, verbose=1,)
+
+        print(decode_label(labels, label))
+
 
 
 
 
 if __name__ == "__main__":
     
-    image_name = ''
+    image_name = '/home/luca/DATA/Progetto_Sistemi_Digitali/Progetti/rubbish_detection/data/dataset/plastic34.jpg'
+
+    dataset, labels = load_dataset(working_dir=config.working_dir)
 
     if os.path.isdir(config.model_dir):
-        model = rubbish_detector_model.restore_model(config.model_file)
+        model = rubbish_detector_model.restore_model(config.model_file, config.weights_file, len(labels))
 
-    predict(model, image_name)
+    predict_class(model, image_name, labels)

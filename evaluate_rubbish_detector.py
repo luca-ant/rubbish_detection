@@ -11,7 +11,7 @@ def evaluate(model, labels, test_images):
 
     print("Test set size: {}".format(len(test_images)))
 
-    test_data_generator = data_generator(config.dataset_dir, labels, train_images, config.batch_size)
+    test_data_generator = data_generator(config.dataset_dir, labels, test_images, config.batch_size)
     steps = len(test_images) // config.batch_size + 1
     results = model.evaluate(x=test_data_generator, verbose=1, steps=steps)
     print(results)
