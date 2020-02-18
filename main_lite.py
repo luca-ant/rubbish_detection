@@ -10,7 +10,7 @@ DEPTH_FACTOR = 15
 DISP_FACTOR = 6
 
 labels = load_labels(config.working_dir)
-interpreter = tf.compat.v1.lite.Interpreter(model_path='./model_lite/model_lite.tflite')
+interpreter = tf.compat.v2.lite.Interpreter(model_path='./model_lite/model_lite.tflite')
 
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
@@ -24,14 +24,21 @@ width = 224
 
 image_name = '/home/luca/rubbish_detection/data/dataset/test/metal209.jpg'
 
-img = cv2.imread(image_name)
+img_o = cv2.imread(image_name)
+
 # Prepare input to the network
-img = cv2.resize(img, (width, height)).astype(np.float32)
+img = cv2.resize(img_o, (width, height))
+
+cv2.imshow('image', img)
+k = cv2.waitKey(0)
+
 img_batch = np.expand_dims(img, 0)
-print('img ', img.shape)
+
+print('img shape', img.shape)
+
 interpreter.allocate_tensors()
 
-#   img_batch = np.float32(img_batch)
+img_batch = np.float32(img_batch)
 
 print("image_batch", img_batch.shape)
 print ('Set tensor index ', input_details[0]['index'])
@@ -53,11 +60,3 @@ print("LABEL", decode_label(labels, output_data))
 
 print("FINEEEE")
 
-img = (img*255).astype(np.uint8)            
-
-
-while True:
-    # Build final output
-
-    # Show cool visualization
-    cv2.imshow('aa', img)
