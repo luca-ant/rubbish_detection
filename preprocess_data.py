@@ -16,8 +16,9 @@ def load_labels(working_dir='./'):
 
     with open(labels_file) as lf:
         for l in lf:
-            labels.append(l.srip())
-    return labels.sort()
+            labels.append(l.strip())
+    labels.sort()
+    return labels
 
 def load_train_dataset(working_dir='./'):
 
@@ -36,7 +37,7 @@ def load_train_dataset(working_dir='./'):
 def load_test_dataset(working_dir='./'):
 
     dataset_dir = working_dir+'data/dataset/'
-    train_dir =dataset_dir+'test/'
+    test_dir =dataset_dir+'test/'
     test_images = []
 
     with os.scandir(test_dir) as entries:

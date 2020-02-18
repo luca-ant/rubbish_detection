@@ -1,6 +1,7 @@
 __pycache__/
 venv/
-data
-model/model.h5
-weights/weights.h5
+data/
+model/
+model_lite/
+weights/
 

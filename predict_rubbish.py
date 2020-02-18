@@ -3,7 +3,9 @@ import numpy as np
 import config
 import rubbish_detector_model
 from tensorflow.python.keras.preprocessing import image
-from preprocess_data import decode_label, load_dataset
+from preprocess_data import decode_label, load_labels
+from preprocess_data import data_generator, load_labels, load_train_dataset, load_test_dataset, load_val_dataset
+
 
 def predict_class(model, image_name, labels):
 
@@ -24,7 +26,7 @@ def predict_class(model, image_name, labels):
 
 if __name__ == "__main__":
     
-    image_name = '/home/luca/DATA/Progetto_Sistemi_Digitali/Progetti/rubbish_detection/data/dataset/plastic34.jpg'
+    image_name = '/home/luca/rubbish_detection/data/dataset/test/metal209.jpg'
 
     labels = load_labels(working_dir=config.working_dir)
   

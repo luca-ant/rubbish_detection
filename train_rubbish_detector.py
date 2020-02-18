@@ -1,7 +1,7 @@
 import config
 import os
 import rubbish_detector_model 
-from preprocess_data import data_generator, load_labels, load_train_dataset, load_test_dataset, load_val_dataset
+from preprocess_data import data_generator, load_labels, load_train_dataset, load_val_dataset
 
 from keras.engine.saving import load_model, save_model
 from keras.callbacks import ModelCheckpoint, Callback, EarlyStopping
@@ -29,8 +29,8 @@ def train(model, labels, train_images, val_images):
     steps_val = (len(val_images) // config.batch_size) + 1
 
     # prepare train and val data generator
-    train_data_generator = data_generator(config.dataset_dir, labels, train_images, config.batch_size)
-    val_data_generator = data_generator(config.dataset_dir, labels, val_images, config.batch_size)
+    train_data_generator = data_generator(config.train_dir, labels, train_images, config.batch_size)
+    val_data_generator = data_generator(config.val_dir, labels, val_images, config.batch_size)
     
 
     print("TRAINING MODEL")
