@@ -21,9 +21,8 @@ def evaluate(model, labels, test_images):
 if __name__ == "__main__":
 
 
-    dataset, labels = load_dataset(working_dir=config.working_dir)
-    train_images, test_images, val_images = split_train_test_val(dataset)
-
+    labels = load_labels(working_dir=config.working_dir)
+    test_images = load_test_dataset(working_dir=config.working_dir)
 
     if os.path.isdir(config.model_dir):
         model = rubbish_detector_model.restore_model(config.model_file, config.weights_file, len(labels))

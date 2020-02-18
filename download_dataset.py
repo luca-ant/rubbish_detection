@@ -1,7 +1,6 @@
 import wget
 import zipfile
 import os
-import shutil
 import random
 import re
 import config

@@ -26,8 +26,8 @@ if __name__ == "__main__":
     
     image_name = '/home/luca/DATA/Progetto_Sistemi_Digitali/Progetti/rubbish_detection/data/dataset/plastic34.jpg'
 
-    dataset, labels = load_dataset(working_dir=config.working_dir)
-
+    labels = load_labels(working_dir=config.working_dir)
+  
     if os.path.isdir(config.model_dir):
         model = rubbish_detector_model.restore_model(config.model_file, config.weights_file, len(labels))
 

@@ -7,46 +7,78 @@ from tensorflow.python.keras.preprocessing import image
 from tensorflow.keras.utils import to_categorical
 
 
-def load_dataset(working_dir='./'):
 
-    working_dir = './'
-    data_dir = working_dir+'data/'
+def load_labels(working_dir='./'):
+
     dataset_dir = working_dir+'data/dataset/'
-    if not os.path.exists(dataset_dir):
-        print('Dataset NOT FOUND!')
-        return 
+    labels_file = dataset_dir+'labels.txt'
+    labels = []
 
-    dataset = defaultdict(list)
+    with open(labels_file) as lf:
+        for l in lf:
+            labels.append(l.srip())
+    return labels.sort()
 
-    with os.scandir(dataset_dir) as entries:
+def load_train_dataset(working_dir='./'):
+
+    dataset_dir = working_dir+'data/dataset/'
+    train_dir =dataset_dir+'train/'
+    train_images = []
+
+    with os.scandir(train_dir) as entries:
         for e in entries:
             if e.is_file():
-                c = re.split(r'[0-9]', e.name)[0]
-                dataset[c].append(e.name)
-
-    labels = list(dataset.keys())
-
-    return dataset, labels
+                train_images.append(e.name)
     
+    return train_images
 
-def split_train_test_val(dataset):
-    for c in dataset.keys():
-        dataset[c].sort()
-    #    random.shuffle(dataset[c])
-    train_images = []
+
+def load_test_dataset(working_dir='./'):
+
+    dataset_dir = working_dir+'data/dataset/'
+    train_dir =dataset_dir+'test/'
     test_images = []
+
+    with os.scandir(test_dir) as entries:
+        for e in entries:
+            if e.is_file():
+                test_images.append(e.name)
+    
+    return test_images
+
+
+def load_val_dataset(working_dir='./'):
+
+    dataset_dir = working_dir+'data/dataset/'
+    train_dir =dataset_dir+'val/'
     val_images = []
-    for c in dataset.keys():
-        train_images = train_images + dataset[c][int(len(dataset[c]) * 0.0) : int(len(dataset[c]) * 0.50)]
-        test_images = test_images + dataset[c][int(len(dataset[c]) * 0.50) : int(len(dataset[c]) * 0.75)]
-        val_images = val_images + dataset[c][int(len(dataset[c]) * 0.75) : int(len(dataset[c]) * 1.0)]
+
+    with os.scandir(test_dir) as entries:
+        for e in entries:
+            if e.is_file():
+                val_images.append(e.name)
+    
+    return val_images
 
 
-    random.shuffle(train_images)
-    random.shuffle(test_images)
-    random.shuffle(val_images)
 
-    return train_images, test_images, val_images
+# def split_train_test_val(dataset):
+#     for c in dataset.keys():
+#         random.shuffle(dataset[c])
+#     train_images = []
+#     test_images = []
+#     val_images = []
+#     for c in dataset.keys():
+#         train_images = train_images + dataset[c][int(len(dataset[c]) * 0.0) : int(len(dataset[c]) * 0.7)]
+#         test_images = test_images + dataset[c][int(len(dataset[c]) * 0.7) : int(len(dataset[c]) * 0.85)]
+#         val_images = val_images + dataset[c][int(len(dataset[c]) * 0.85) : int(len(dataset[c]) * 1.0)]
+
+
+#     random.shuffle(train_images)
+#     random.shuffle(test_images)
+#     random.shuffle(val_images)
+
+#     return train_images, test_images, val_images
 
 
 

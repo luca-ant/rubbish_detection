@@ -1,7 +1,7 @@
 import config
 import os
 import rubbish_detector_model 
-from preprocess_data import data_generator, load_dataset, split_train_test_val
+from preprocess_data import data_generator, load_labels, load_train_dataset, load_test_dataset, load_val_dataset
 
 from keras.engine.saving import load_model, save_model
 from keras.callbacks import ModelCheckpoint, Callback, EarlyStopping
@@ -60,8 +60,9 @@ def train(model, labels, train_images, val_images):
 
 if __name__ == "__main__":
 
-    dataset, labels = load_dataset(working_dir=config.working_dir)
-    train_images, test_images, val_images = split_train_test_val(dataset)
+    labels = load_labels(working_dir=config.working_dir)
+    train_images = load_train_dataset(working_dir=config.working_dir)
+    val_images = load_val_dataset(working_dir=config.working_dir)
 
  
     if os.path.isdir(config.model_dir):
