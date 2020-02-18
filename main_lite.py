@@ -22,7 +22,7 @@ print('output', output_details)
 height = 224
 width = 224
 
-image_name = '/home/luca/rubbish_detection/data/dataset/test/metal209.jpg'
+image_name = '/home/luca/rubbish_detection/data/dataset/test/plastic438.jpg'
 
 img_o = cv2.imread(image_name)
 
