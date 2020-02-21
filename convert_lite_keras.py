@@ -1,10 +1,10 @@
 import tensorflow as tf
 import os
 import config
+from preprocess_data import load_labels
+from rubbish_detector_model import convert_model_to_lite, restore_model
+labels = load_labels(config.labels_file)
 
-converter = tf.compat.v1.lite.TFLiteConverter.from_keras_model_file(config.model_dir+'model.h5')
-#converter.target_ops = [tf.lite.OpsSet.TFLITE_BUILTINS,tf.lite.OpsSet.SELECT_TF_OPS]
-tflite_model = converter.convert()
 
-os.makedirs(config.working_dir+'model_lite', exist_ok=True)
-open(config.working_dir+"model_lite/model_lite.tflite", "wb").write(tflite_model)
+model = restore_model(config.model_file, config.weights_file, len(labels))
+convert_model_to_lite(model, config.model_file, config.model_lite_file)

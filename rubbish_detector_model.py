@@ -1,9 +1,10 @@
 import tensorflow as tf
+import os
 from keras.applications import ResNet50
 from keras.models import Sequential
 from keras.optimizers import Adam
 from keras.layers import Dense, Flatten, BatchNormalization
-
+import config
 
 def create_nn(num_classes):
     print("CREATING MODEL")
@@ -35,9 +36,19 @@ def restore_model(model_file, weights_file, num_classes):
     #opt = Adam(lr=0.001)
     #model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
 
-
     #model = tf.keras.models.load_model(model_file, compile=True)
     #model.layers[0].trainable = False
     #model.summary()
 
     return model
+
+
+def convert_model_to_lite(model, model_file, model_lite_file):
+
+    converter = tf.compat.v1.lite.TFLiteConverter.from_keras_model_file(model_file)
+#    converter = tf.compat.v2.lite.TFLiteConverter.from_keras_model(model) 
+    tflite_model = converter.convert()
+
+    os.makedirs(config.model_dir_lite, exist_ok=True)
+    open(model_lite_file, "wb").write(tflite_model)
+    print('Lite model saved to '+ model_lite_file)

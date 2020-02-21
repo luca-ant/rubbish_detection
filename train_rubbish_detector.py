@@ -60,9 +60,9 @@ def train(model, labels, train_images, val_images):
 
 if __name__ == "__main__":
 
-    labels = load_labels(working_dir=config.working_dir)
-    train_images = load_train_dataset(working_dir=config.working_dir)
-    val_images = load_val_dataset(working_dir=config.working_dir)
+    labels = load_labels(config.labels_file)
+    train_images = load_train_dataset(config.train_dir)
+    val_images = load_val_dataset(config.val_dir)
 
  
     if os.path.isdir(config.model_dir):

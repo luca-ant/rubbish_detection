@@ -7,8 +7,7 @@ import config
 
 def download_dataset(working_dir='./'):
     data_dir = working_dir+'data/'
-    dataset_dir = working_dir+'data/dataset/'
-    if not os.path.exists(dataset_dir):
+    if not os.path.exists(config.dataset_dir):
 
             os.makedirs(data_dir, exist_ok=True)
 

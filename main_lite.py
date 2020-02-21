@@ -9,8 +9,8 @@ from preprocess_data import load_labels, decode_label
 DEPTH_FACTOR = 15
 DISP_FACTOR = 6
 
-labels = load_labels(config.working_dir)
-interpreter = tf.compat.v2.lite.Interpreter(model_path='./model_lite/model_lite.tflite')
+labels = load_labels(config.labels_file)
+interpreter = tf.compat.v2.lite.Interpreter(model_path=config.model_lite_file)
 
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
@@ -22,7 +22,7 @@ print('output', output_details)
 height = 224
 width = 224
 
-image_name = '/home/luca/rubbish_detection/data/dataset/test/plastic438.jpg'
+image_name = '/home/luca/Desktop/rubbish_detection/data/dataset/test/plastic438.jpg'
 
 img_o = cv2.imread(image_name)
 

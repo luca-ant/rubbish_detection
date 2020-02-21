@@ -26,9 +26,9 @@ def predict_class(model, image_name, labels):
 
 if __name__ == "__main__":
     
-    image_name = '/home/luca/rubbish_detection/data/dataset/test/metal209.jpg'
+    image_name = '/home/luca/Desktop/rubbish_detection/data/dataset/test/metal209.jpg'
 
-    labels = load_labels(working_dir=config.working_dir)
+    labels = load_labels(config.labels_file)
   
     if os.path.isdir(config.model_dir):
         model = rubbish_detector_model.restore_model(config.model_file, config.weights_file, len(labels))

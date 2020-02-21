@@ -21,8 +21,8 @@ def evaluate(model, labels, test_images):
 if __name__ == "__main__":
 
 
-    labels = load_labels(working_dir=config.working_dir)
-    test_images = load_test_dataset(working_dir=config.working_dir)
+    labels = load_labels(config.labels_file)
+    test_images = load_test_dataset(config.test_dir)
 
 
     if os.path.isdir(config.model_dir):

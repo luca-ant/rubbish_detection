@@ -7,11 +7,8 @@ from tensorflow.python.keras.preprocessing import image
 from tensorflow.keras.utils import to_categorical
 
 
+def load_labels(labels_file):
 
-def load_labels(working_dir='./'):
-
-    dataset_dir = working_dir+'data/dataset/'
-    labels_file = dataset_dir+'labels.txt'
     labels = []
 
     with open(labels_file) as lf:
@@ -20,46 +17,29 @@ def load_labels(working_dir='./'):
     labels.sort()
     return labels
 
-def load_train_dataset(working_dir='./'):
+def load_dataset_from_dir(d):
 
-    dataset_dir = working_dir+'data/dataset/'
-    train_dir =dataset_dir+'train/'
-    train_images = []
+    images = []
 
-    with os.scandir(train_dir) as entries:
+    with os.scandir(d) as entries:
         for e in entries:
             if e.is_file():
-                train_images.append(e.name)
+                images.append(e.name)
     
-    return train_images
+    return images
 
 
-def load_test_dataset(working_dir='./'):
-
-    dataset_dir = working_dir+'data/dataset/'
-    test_dir =dataset_dir+'test/'
-    test_images = []
-
-    with os.scandir(test_dir) as entries:
-        for e in entries:
-            if e.is_file():
-                test_images.append(e.name)
+def load_train_dataset(train_dir):
     
-    return test_images
+    return load_dataset_from_dir(train_dir)
 
 
-def load_val_dataset(working_dir='./'):
+def load_test_dataset(test_dir):
+    return load_dataset_from_dir(test_dir)
 
-    dataset_dir = working_dir+'data/dataset/'
-    train_dir =dataset_dir+'val/'
-    val_images = []
+def load_val_dataset(val_dir):
 
-    with os.scandir(test_dir) as entries:
-        for e in entries:
-            if e.is_file():
-                val_images.append(e.name)
-    
-    return val_images
+    return load_dataset_from_dir(val_dir)
 
 
 
@@ -86,8 +66,6 @@ def load_val_dataset(working_dir='./'):
 def decode_label(labels, label):
     labels.sort()
     return labels[np.argmax(label)]
-    
-   
 
 
 def data_generator(dataset_dir, labels, dataset_list, bath_size):
