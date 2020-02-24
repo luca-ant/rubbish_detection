@@ -33,4 +33,6 @@ if __name__ == "__main__":
     if os.path.isdir(config.model_dir):
         model = rubbish_detector_model.restore_model(config.model_file, config.weights_file, len(labels))
 
-    predict_class(model, image_name, labels)
+        predict_class(model, image_name, labels)
+    else:
+        print("Model not found in {}".format(config.model_dir))
