@@ -25,7 +25,7 @@ def create_nn(num_classes):
 #    model.add(Dropout(0.3))
     model.add(Dense(num_classes, activation='softmax'))
 
-    model.layers[0].trainable = False
+#    model.layers[0].trainable = False
     
     opt = Adam(lr=0.0001)
     model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
@@ -45,7 +45,7 @@ def restore_model(model_file, weights_file, num_classes):
 
     print("LOADING MODEL")
     model = load_model(model_file)
-    model.layers[0].trainable = False
+#    model.layers[0].trainable = False
     opt = Adam(lr=0.0001)
     model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
     model.summary()
