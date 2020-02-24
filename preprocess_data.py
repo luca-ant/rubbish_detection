@@ -26,7 +26,7 @@ def load_dataset_from_dir(d):
         for e in entries:
             if e.is_file():
                 images.append(e.name)
-    
+    random.shuffle(images) 
     return images
 
 
