@@ -20,9 +20,9 @@ def train(model, labels, train_images, val_images):
         os.makedirs(config.model_dir)
 
     # callbacks
-    save_weights_callback = ModelCheckpoint(config.weights_file, monitor='val_acc', save_weights_only=True, verbose=2, mode='auto', period=1)
-    save_model_callback = ModelCheckpoint(config.model_file, verbose=1, period=1)
-    early_stopping_callback = EarlyStopping(monitor='val_accuracy', mode='max', verbose=1)
+    save_weights_callback = ModelCheckpoint(config.weights_file, monitor='val_acc', save_weights_only=True, save_best_only=True, verbose=2, mode='auto', period=1)
+    save_model_callback = ModelCheckpoint(config.model_file, save_best_only=True, verbose=1, period=1)
+    early_stopping_callback = EarlyStopping(monitor='val_accuracy', mode='max', restore_best_weights=True, verbose=1)
 
     # params
     steps_train = (len(train_images) // config.batch_size) + 1
@@ -43,7 +43,7 @@ def train(model, labels, train_images, val_images):
 
     print("SAVING MODEL TO " + config.model_file)
 
-    model.save(config.model_file)
+    model.save(config.model_file, include_optimizer=False)
 
     print("TRAINING COMPLETE!")
 
@@ -64,7 +64,6 @@ if __name__ == "__main__":
     train_images = load_train_dataset(config.train_dir)
     val_images = load_val_dataset(config.val_dir)
 
- 
     if os.path.isdir(config.model_dir):
         model = rubbish_detector_model.restore_model(config.model_file, config.weights_file, len(labels))
     else:
