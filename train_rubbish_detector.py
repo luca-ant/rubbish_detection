@@ -21,7 +21,7 @@ def train(model, labels, train_images, val_images):
 
     # callbacks
     save_weights_callback = ModelCheckpoint(config.weights_file, monitor='val_acc', save_weights_only=True, verbose=2, mode='auto', period=1)
-    save_model_callback = ModelCheckpoint(config.model_file, save_best_only=True, verbose=1, period=1)
+    save_model_callback = ModelCheckpoint(config.model_file, verbose=1, period=1)
     early_stopping_callback = EarlyStopping(monitor='val_accuracy', mode='max', restore_best_weights=True, verbose=1)
 
     # params
