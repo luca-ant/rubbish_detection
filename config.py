@@ -10,6 +10,7 @@ val_dir =dataset_dir+'val/'
 
 weights_file = weights_dir + "weights.h5"
 model_file = model_dir + "model.h5"
+model_checkpoint = model_dir + "checkpoint.h5"
 model_lite_file = model_dir_lite + "model_lite.tflite"
 labels_file = dataset_dir+'labels.txt'
 

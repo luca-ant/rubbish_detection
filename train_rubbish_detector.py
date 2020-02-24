@@ -20,7 +20,7 @@ def train(model, labels, train_images, val_images):
 
     # callbacks
     save_weights_callback = ModelCheckpoint(config.weights_file, monitor='val_accuracy',save_best_only=True, save_weights_only=True, verbose=2, mode='auto', period=1)
-    save_model_callback = ModelCheckpoint(config.model_file, monitor='val_accuracy', save_best_only=True, mode='auto',verbose=1, period=1)
+    save_model_callback = ModelCheckpoint(config.model_checkpoint, monitor='val_accuracy', save_best_only=True, mode='auto',verbose=1, period=1)
     early_stopping_callback = EarlyStopping(monitor='val_accuracy', mode='max', restore_best_weights=True, verbose=1)
     csv_logger_callback = CSVLogger('training_log.csv', separator=';', append=False)
 
@@ -37,11 +37,11 @@ def train(model, labels, train_images, val_images):
     history = model.fit(x=train_data_generator, epochs=config.total_epochs, steps_per_epoch=steps_train, verbose=1, validation_data=val_data_generator, shuffle=True,
                                         validation_steps=steps_val, callbacks=[save_weights_callback, save_model_callback, early_stopping_callback, csv_logger_callback])
 
-#    print("SAVING WEIGHTS TO " + config.weights_file)
-#    model.save_weights(config.weights_file, True)
+    print("SAVING WEIGHTS TO " + config.weights_file)
+    model.save_weights(config.weights_file, True)
 
-#    print("SAVING MODEL TO " + config.model_file)
-#    model.save(config.model_file, include_optimizer=False)
+    print("SAVING MODEL TO " + config.model_file)
+    model.save(config.model_file, include_optimizer=False)
 
     print("TRAINING COMPLETE!")
 
