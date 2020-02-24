@@ -20,8 +20,8 @@ def train(model, labels, train_images, val_images):
         os.makedirs(config.model_dir)
 
     # callbacks
-    save_weights_callback = ModelCheckpoint(config.weights_file, monitor='val_acc', save_weights_only=True, verbose=2, mode='auto', period=1)
-    save_model_callback = ModelCheckpoint(config.model_file, verbose=1, period=1)
+    save_weights_callback = ModelCheckpoint(config.weights_file, monitor='val_accuracy',save_best_only=True, save_weights_only=True, verbose=2, mode='auto', period=1)
+    save_model_callback = ModelCheckpoint(config.model_file, monitor='val_accuracy', save_best_only=True, mode='auto',verbose=1, period=1)
     early_stopping_callback = EarlyStopping(monitor='val_accuracy', mode='max', restore_best_weights=True, verbose=1)
 
     # params
