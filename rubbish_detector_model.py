@@ -17,6 +17,7 @@ def create_nn(num_classes):
 
     model.add(ResNet50(pooling='avg', weights='imagenet'))  # input_shape = (224,224,3)⏎
 #    model.add(InceptionResNetV2(pooling='avg', weights='imagenet'))  # input_shape = (299,299,3)⏎
+    model.add(BatchNormalization())
     model.add(Dense(500, activation='relu'))
     model.add(BatchNormalization())
 #    model.add(Dropout(0.3))
