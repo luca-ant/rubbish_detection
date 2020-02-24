@@ -9,7 +9,7 @@ from preprocess_data import data_generator, load_labels, load_train_dataset, loa
 
 def predict_class(model, image_name, labels):
 
-        img = image.load_img(image_name, target_size=(224, 224, 3))
+        img = image.load_img(image_name, target_size=config.input_shape)
         img = image.img_to_array(img)
         img = np.expand_dims(img, axis=0)
 

@@ -13,6 +13,7 @@ model_file = model_dir + "model.h5"
 model_lite_file = model_dir_lite + "model_lite.tflite"
 labels_file = dataset_dir+'labels.txt'
 
+input_shape=(299,299,3)
 batch_size = 16
 total_epochs = 1
 

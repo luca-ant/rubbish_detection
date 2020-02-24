@@ -2,9 +2,9 @@ import tensorflow as tf
 import os
 from keras.applications import ResNet50
 from keras.applications.inception_resnet_v2 import InceptionResNetV2
-from keras.models import Sequential
+from keras.models import Sequential, load_model
 from keras.optimizers import Adam
-from keras.layers import Dense, Flatten, BatchNormalization
+from keras.layers import Dense, Flatten, BatchNormalization, Dropout
 import config
 
 def create_nn(num_classes):
@@ -19,10 +19,10 @@ def create_nn(num_classes):
     model.add(InceptionResNetV2(pooling='avg', weights='imagenet'))  # input_shape = (299,299,3)⏎
     model.add(Dense(500, activation='relu'))
 #    model.add(BatchNormalization())
-    model.add(Dropout(0.7))
+    model.add(Dropout(0.3))
     model.add(Dense(250, activation='relu'))
 #    model.add(BatchNormalization())
-    model.add(Dropout(0.7))
+    model.add(Dropout(0.3))
     model.add(Dense(num_classes, activation='softmax'))
 
     model.layers[0].trainable = False
@@ -44,7 +44,7 @@ def restore_model(model_file, weights_file, num_classes):
     #model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
 
     print("LOADING MODEL")
-    model = tf.keras.models.load_model(model_file)
+    model = load_model(model_file)
     model.layers[0].trainable = False
     opt = Adam(lr=0.0001)
     model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])

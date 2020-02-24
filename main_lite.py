@@ -19,8 +19,8 @@ output_details = interpreter.get_output_details()
 print('intput ', input_details)
 print('output', output_details)
 
-height = 224
-width = 224
+height = config.input_shape[0]
+width = config.input_shape[1]
 
 image_name = '/home/luca/Desktop/rubbish_detection/data/dataset/test/plastic438.jpg'
 

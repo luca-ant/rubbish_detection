@@ -2,6 +2,7 @@ import re
 import numpy as np
 import os
 import random
+import config
 from collections import defaultdict
 from tensorflow.python.keras.preprocessing import image
 from tensorflow.keras.utils import to_categorical
@@ -78,7 +79,7 @@ def data_generator(dataset_dir, labels, dataset_list, bath_size):
 
         for image_name in dataset_list:
             n += 1
-            img = image.load_img(dataset_dir + image_name, target_size=(224, 224, 3))
+            img = image.load_img(dataset_dir + image_name, target_size=config.input_shape)
             img = image.img_to_array(img)
             c = re.split(r'[0-9]', image_name)[0]
 
