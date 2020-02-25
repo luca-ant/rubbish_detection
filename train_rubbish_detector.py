@@ -35,7 +35,9 @@ def train(model, labels, train_images, val_images):
 
     print("TRAINING MODEL")
     history = model.fit(x=train_data_generator, epochs=config.total_epochs, steps_per_epoch=steps_train, verbose=1, validation_data=val_data_generator, shuffle=True,
-                                        validation_steps=steps_val, callbacks=[save_weights_callback, save_model_callback, early_stopping_callback, csv_logger_callback])
+                                        validation_steps=steps_val, callbacks=[save_weights_callback, save_model_callback, 
+                                        #    early_stopping_callback, 
+                                            csv_logger_callback])
 
     print("SAVING WEIGHTS TO " + config.weights_file)
     model.save_weights(config.weights_file, True)

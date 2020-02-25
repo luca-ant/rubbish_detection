@@ -3,7 +3,7 @@ import os
 from keras.applications import ResNet50
 from keras.applications.inception_resnet_v2 import InceptionResNetV2
 from keras.models import Sequential, load_model
-from keras.optimizers import Adam
+from keras.optimizers import Adam, RMSprop
 from keras.layers import Dense, Flatten, BatchNormalization, Dropout
 import config
 
@@ -28,7 +28,8 @@ def create_nn(num_classes):
 
 #    model.layers[0].trainable = False
     
-    opt = Adam(lr=0.00001)
+#    opt = Adam(lr=0.00001)
+    opt = Adam(lr=0.000001)
     model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
 
     model.summary()
@@ -47,7 +48,9 @@ def restore_model(model_file, weights_file, num_classes):
     print("LOADING MODEL")
     model = load_model(model_file)
 #    model.layers[0].trainable = False
-    opt = Adam(lr=0.00001)
+
+#    opt = Adam(lr=0.00001)
+    opt = Adam(lr=0.000001)
     model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
     model.summary()
 
