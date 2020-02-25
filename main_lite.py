@@ -22,7 +22,7 @@ print('output', output_details)
 height = config.input_shape[0]
 width = config.input_shape[1]
 
-image_name = '/home/luca/Desktop/rubbish_detection/data/dataset/test/plastic438.jpg'
+image_name = '/home/luca/Desktop/rubbish_detection/data/dataset/test/metal2.jpg'
 
 img_o = cv2.imread(image_name)
 
@@ -54,9 +54,12 @@ print("input tensor set")
 interpreter.invoke()
 
 output_data = interpreter.get_tensor(output_details[0]['index'])
-print(output_data)
 
-print("LABEL", decode_label(labels, output_data))
-
-print("FINEEEE")
+predictions = dict(zip(labels, list(output_data[0])))
+predictions = dict(sorted(predictions.items(), key=lambda item: item[1], reverse=True))
+print(' '+'='*21+' ')
+for k, v in predictions.items():
+    print('|{:12}| {:.2f}%|'.format(k, v*100))
+print(' '+'='*20+' ')
+print("\nLABEL", decode_label(labels, output_data))
 
