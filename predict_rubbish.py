@@ -17,6 +17,7 @@ def predict_class(model, image_name, labels):
         #print(model.layers[0].layers[0].input_shape)
 
         output_data = model.predict(x=img, verbose=1,)
+        print('output_data', output_data[0])
 
         predictions = dict(zip(labels, list(output_data[0])))
         predictions = dict(sorted(predictions.items(), key=lambda item: item[1], reverse=True))
@@ -31,13 +32,12 @@ def predict_class(model, image_name, labels):
 
 if __name__ == "__main__":
     
-    image_name = '/home/luca/Desktop/rubbish_detection/data/dataset/test/metal2.jpg'
+    image_name = '/home/luca/Desktop/rubbish_detection/data/dataset/test/metal383.jpg'
 
     labels = load_labels(config.labels_file)
   
-    if os.path.isdir(config.model_dir):
+    if os.path.isfile(config.model_file):
         model = rubbish_detector_model.restore_model(config.model_file, config.weights_file, len(labels))
-
         predict_class(model, image_name, labels)
     else:
-        print("Model not found in {}".format(config.model_dir))
+        print("Model not found in {}".format(config.model_file))

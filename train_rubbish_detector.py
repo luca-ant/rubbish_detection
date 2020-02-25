@@ -64,7 +64,7 @@ if __name__ == "__main__":
     train_images = load_train_dataset(config.train_dir)
     val_images = load_val_dataset(config.val_dir)
 
-    if os.path.isdir(config.model_dir):
+    if os.path.isfile(config.model_file):
         model = rubbish_detector_model.restore_model(config.model_file, config.weights_file, len(labels))
     else:
         model = rubbish_detector_model.create_nn(len(labels))

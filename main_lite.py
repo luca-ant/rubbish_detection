@@ -4,6 +4,7 @@ import numpy as np
 import time
 import traceback
 import config
+from tensorflow.python.keras.preprocessing import image
 from preprocess_data import load_labels, decode_label
 
 DEPTH_FACTOR = 15
@@ -22,15 +23,16 @@ print('output', output_details)
 height = config.input_shape[0]
 width = config.input_shape[1]
 
-image_name = '/home/luca/Desktop/rubbish_detection/data/dataset/test/metal2.jpg'
+image_name = '/home/luca/Desktop/rubbish_detection/data/dataset/test/glass405.jpg'
 
-img_o = cv2.imread(image_name)
+img = image.load_img(image_name, target_size=config.input_shape)
+img = image.img_to_array(img)
 
-# Prepare input to the network
-img = cv2.resize(img_o, (width, height))
 
-cv2.imshow('image', img)
-k = cv2.waitKey(0)
+#img_o = cv2.imread(image_name)
+#img = cv2.resize(img_o, (width, height))
+#cv2.imshow('image', img)
+#k = cv2.waitKey(0)
 
 img_batch = np.expand_dims(img, 0)
 
@@ -44,17 +46,16 @@ print("image_batch", img_batch.shape)
 print ('Set tensor index ', input_details[0]['index'])
 print(input_details[0])
 
-print(interpreter.get_tensor_details()[:4])
 
 interpreter.set_tensor(input_details[0]['index'], img_batch)
 
-print("input tensor set")
+print("Input tensor set")
 
 
 interpreter.invoke()
 
 output_data = interpreter.get_tensor(output_details[0]['index'])
-
+print('output_data', output_data[0])
 predictions = dict(zip(labels, list(output_data[0])))
 predictions = dict(sorted(predictions.items(), key=lambda item: item[1], reverse=True))
 print(' '+'='*21+' ')

@@ -5,7 +5,6 @@ from keras.applications.inception_resnet_v2 import InceptionResNetV2
 from keras.models import Sequential, load_model
 from keras.optimizers import Adam, RMSprop
 from keras.layers import Dense, Flatten, BatchNormalization, Dropout
-import config
 
 def create_nn(num_classes):
     print("CREATING MODEL")
@@ -56,13 +55,3 @@ def restore_model(model_file, weights_file, num_classes):
 
     return model
 
-
-def convert_model_to_lite(model, model_file, model_lite_file):
-
-    converter = tf.compat.v1.lite.TFLiteConverter.from_keras_model_file(model_file)
-#    converter = tf.compat.v2.lite.TFLiteConverter.from_keras_model(model) 
-    tflite_model = converter.convert()
-
-    os.makedirs(config.model_dir_lite, exist_ok=True)
-    open(model_lite_file, "wb").write(tflite_model)
-    print('Lite model saved to '+ model_lite_file)
