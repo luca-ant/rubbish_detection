@@ -16,14 +16,14 @@ def predict_class(model, image_name, labels):
         #print(img.shape)
         #print(model.layers[0].layers[0].input_shape)
 
-        output_data = model.predict(x=img, batch_size=1, verbose=1,)
+        output_data = model.predict(x=img, verbose=1,)
 
         predictions = dict(zip(labels, list(output_data[0])))
         predictions = dict(sorted(predictions.items(), key=lambda item: item[1], reverse=True))
         print(' '+'='*21+' ')
         for k, v in predictions.items():
-            print('|{:12}| {:.2f}%|'.format(k, v*100))
-        print(' '+'='*20+' ')
+            print('|{:12}| {:6.2f}%|'.format(k, v*100))
+        print(' '+'='*21)
         print("\nLABEL", decode_label(labels, output_data))
 
 

@@ -59,7 +59,7 @@ predictions = dict(zip(labels, list(output_data[0])))
 predictions = dict(sorted(predictions.items(), key=lambda item: item[1], reverse=True))
 print(' '+'='*21+' ')
 for k, v in predictions.items():
-    print('|{:12}| {:.2f}%|'.format(k, v*100))
-print(' '+'='*20+' ')
+    print('|{:12}| {:6.2f}%|'.format(k, v*100))
+print(' '+'='*21)
 print("\nLABEL", decode_label(labels, output_data))
 
