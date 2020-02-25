@@ -17,4 +17,4 @@ labels_file = dataset_dir+'labels.txt'
 input_shape=(224,224,3)
 #input_shape=(299,299,3)
 batch_size = 16
-total_epochs = 50
+total_epochs = 100
