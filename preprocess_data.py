@@ -106,7 +106,7 @@ def data_generator(dataset_dir, labels, dataset_list, bath_size):
 
         for image_name in dataset_list:
             n += 1
-#            img = image.load_img(config.test_dir + image_name, target_size=config.input_shape)
+#            img = image.load_img(dataset_dir + image_name, target_size=config.input_shape)
 #            img = image.img_to_array(img)
             image_array = read_image_as_array(dataset_dir + image_name)
             c = re.split(r'[0-9]', image_name)[0]
