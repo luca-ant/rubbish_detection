@@ -7,9 +7,6 @@ import config
 from tensorflow.python.keras.preprocessing import image
 from preprocess_data import load_labels, decode_label
 
-DEPTH_FACTOR = 15
-DISP_FACTOR = 6
-
 labels = load_labels(config.labels_file)
 interpreter = tf.compat.v2.lite.Interpreter(model_path=config.model_lite_file)
 

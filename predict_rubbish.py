@@ -32,7 +32,7 @@ def predict_class(model, image_name, labels):
 
 if __name__ == "__main__":
     
-    image_name = '/home/luca/Desktop/rubbish_detection/data/dataset/test/metal383.jpg'
+    image_name = '/home/luca/Desktop/rubbish_detection/data/dataset/test/glass405.jpg'
 
     labels = load_labels(config.labels_file)
   
