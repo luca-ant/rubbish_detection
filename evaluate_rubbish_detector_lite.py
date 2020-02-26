@@ -6,13 +6,15 @@ import re
 import traceback
 import config
 from tensorflow.python.keras.preprocessing import image
-from preprocess_data import decode_label, load_labels, load_test_dataset
+from preprocess_data import decode_label, load_labels, load_test_dataset, read_image_as_array
 
 height = config.input_shape[0]
 width = config.input_shape[1]
 
 
 def evaluate(interpreter, labels, test_images):
+
+    interpreter.allocate_tensors()
     input_details = interpreter.get_input_details()
     output_details = interpreter.get_output_details()
 
@@ -24,19 +26,10 @@ def evaluate(interpreter, labels, test_images):
 
     for image_name in test_images:
         true_label = re.split(r'[0-9]', image_name)[0]
+        image_array = read_image_as_array(config.test_dir+image_name)
 
-        img = image.load_img(config.test_dir+image_name, target_size=config.input_shape)
-        img = image.img_to_array(img)
+        img_batch = np.expand_dims(image_array, 0)
 
-
-#        img_o = cv2.imread(image_name)
-#        img = cv2.resize(img_o, (width, height))
-#        cv2.imshow('image', img)
-#        k = cv2.waitKey(0)
-
-        img_batch = np.expand_dims(img, 0)
-
-#        img_batch = np.float32(img_batch)
 
         interpreter.set_tensor(input_details[0]['index'], img_batch)
 
@@ -69,7 +62,6 @@ if __name__ == "__main__":
 
     if os.path.isfile(config.model_lite_file):
         interpreter = tf.compat.v2.lite.Interpreter(model_path=config.model_lite_file)
-        interpreter.allocate_tensors()
         evaluate(interpreter, labels, test_images)
     else:
         print("Model not found in {}".format(config.model_file_lite))

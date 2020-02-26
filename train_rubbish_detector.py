@@ -39,11 +39,10 @@ def train(model, labels, train_images, val_images):
                                         #    early_stopping_callback, 
                                             csv_logger_callback])
 
-    print("SAVING WEIGHTS TO " + config.weights_file)
-    model.save_weights(config.weights_file, True)
-
-    print("SAVING MODEL TO " + config.model_file)
-    model.save(config.model_file, include_optimizer=False)
+#    print("SAVING WEIGHTS TO " + config.weights_file)
+#    model.save_weights(config.weights_file, True)
+#    print("SAVING MODEL TO " + config.model_file)
+#    model.save(config.model_file, include_optimizer=False)
 
     print("TRAINING COMPLETE!")
 

@@ -3,6 +3,7 @@ import numpy as np
 import os
 import random
 import config
+import cv2
 from collections import defaultdict
 from tensorflow.python.keras.preprocessing import image
 from tensorflow.keras.utils import to_categorical
@@ -17,6 +18,30 @@ def load_labels(labels_file):
             labels.append(l.strip())
     labels.sort()
     return labels
+
+
+def read_image_as_array(image_name):
+
+
+    # load with Pillow
+    img = image.load_img(image_name, target_size=config.input_shape)
+#    img.show()
+    image_array = image.img_to_array(img)
+
+    # load with opencv
+#    img_o = cv2.imread(image_name)
+#    img_o = cv2.resize(img_o, (width, height))
+#    image_array = cv2.cvtColor(img_o,cv2.COLOR_BGR2RGB)
+#    cv2.imshow('image', img_o)
+#    k = cv2.waitKey(0)
+
+    return image_array
+
+
+
+
+
+
 
 def load_dataset_from_dir(d):
 
@@ -79,12 +104,13 @@ def data_generator(dataset_dir, labels, dataset_list, bath_size):
 
         for image_name in dataset_list:
             n += 1
-            img = image.load_img(config.test_dir + image_name, target_size=config.input_shape)
-            img = image.img_to_array(img)
+#            img = image.load_img(config.test_dir + image_name, target_size=config.input_shape)
+#            img = image.img_to_array(img)
+            image_array = read_image_as_array(config.test_dir + image_name)
             c = re.split(r'[0-9]', image_name)[0]
 
             encoded_label = to_categorical(labels_int_dict[c], num_classes=len(labels))
-            x_image.append(img)
+            x_image.append(image_array)
             y_class.append(encoded_label)
 
             if n == bath_size:
