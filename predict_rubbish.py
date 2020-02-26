@@ -10,11 +10,10 @@ from preprocess_data import data_generator, load_labels, load_train_dataset, loa
 
 def predict_class(model, image_array, labels):
 
-
     img_batch = np.expand_dims(image_array, 0)
 
     output_data = model.predict(x=img_batch, verbose=1,)
-    print('output_data', output_data[0])
+#    print('output_data', output_data[0])
 
     predictions = dict(zip(labels, list(output_data[0])))
     predictions = dict(sorted(predictions.items(), key=lambda item: item[1], reverse=True))

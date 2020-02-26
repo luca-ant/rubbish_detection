@@ -10,20 +10,12 @@ from tensorflow.python.keras.preprocessing import image
 from preprocess_data import load_labels, decode_label, read_image_as_array
 
 
-height = config.input_shape[0]
-width = config.input_shape[1]
-
 
 def predict_class_lite(interpreter, image_array, labels):
 
     interpreter.allocate_tensors()
     input_details = interpreter.get_input_details()
     output_details = interpreter.get_output_details()
-
-
-    print('intput ', input_details)
-    print('output', output_details)
-
 
 
     img_batch = np.expand_dims(image_array, 0)
@@ -36,7 +28,7 @@ def predict_class_lite(interpreter, image_array, labels):
     interpreter.invoke()
 
     output_data = interpreter.get_tensor(output_details[0]['index'])
-    print('output_data', output_data[0])
+#    print('output_data', output_data[0])
     predictions = dict(zip(labels, list(output_data[0])))
     predictions = dict(sorted(predictions.items(), key=lambda item: item[1], reverse=True))
     return predictions 

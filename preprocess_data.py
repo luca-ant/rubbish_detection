@@ -22,6 +22,8 @@ def load_labels(labels_file):
 
 def read_image_as_array(image_name):
 
+    height = config.input_shape[0]
+    width = config.input_shape[1]
 
     # load with Pillow
     img = image.load_img(image_name, target_size=config.input_shape)

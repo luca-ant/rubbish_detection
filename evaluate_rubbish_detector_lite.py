@@ -8,8 +8,6 @@ import config
 from tensorflow.python.keras.preprocessing import image
 from preprocess_data import decode_label, load_labels, load_test_dataset, read_image_as_array
 
-height = config.input_shape[0]
-width = config.input_shape[1]
 
 
 def evaluate(interpreter, labels, test_images):
