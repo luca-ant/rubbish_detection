@@ -108,7 +108,7 @@ def data_generator(dataset_dir, labels, dataset_list, bath_size):
             n += 1
 #            img = image.load_img(config.test_dir + image_name, target_size=config.input_shape)
 #            img = image.img_to_array(img)
-            image_array = read_image_as_array(config.test_dir + image_name)
+            image_array = read_image_as_array(dataset_dir + image_name)
             c = re.split(r'[0-9]', image_name)[0]
 
             encoded_label = to_categorical(labels_int_dict[c], num_classes=len(labels))
