@@ -5,6 +5,7 @@ import os
 import re
 import traceback
 import config
+from progress.bar import Bar
 from tensorflow.python.keras.preprocessing import image
 from preprocess_data import decode_label, load_labels, load_test_dataset, read_image_as_array
 
@@ -22,6 +23,7 @@ def evaluate(interpreter, labels, test_images):
 
     accurate_count = 0
 
+    bar = Bar('Evaluating images', max=len(test_images))
     for image_name in test_images:
         true_label = re.split(r'[0-9]', image_name)[0]
         image_array = read_image_as_array(config.test_dir+image_name)
@@ -45,7 +47,8 @@ def evaluate(interpreter, labels, test_images):
         
         if true_label.strip() == decode_label(labels, output_data).strip():
             accurate_count += 1
-
+        bar.next()
+    bar.finish()
     accuracy = accurate_count * 1.0 / len(test_images)
     print('\nACCURACY: {:.2f}%'.format(accuracy *100))
     return accuracy

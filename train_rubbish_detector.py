@@ -13,15 +13,15 @@ def train(model, labels, train_images, val_images):
     print('\nTrain set size: {}'.format(len(train_images)))
     print('Validation set size: {}\n'.format(len(val_images)))
 
-    if not os.path.isdir(config.weights_dir):
-        os.makedirs(config.weights_dir)
+#    if not os.path.isdir(config.weights_dir):
+#        os.makedirs(config.weights_dir)
     if not os.path.isdir(config.model_dir):
         os.makedirs(config.model_dir)
 
     # callbacks
-    save_weights_callback = ModelCheckpoint(config.weights_file, monitor='val_accuracy',save_best_only=True, save_weights_only=True, verbose=2, mode='auto', period=1)
     save_model_callback = ModelCheckpoint(config.model_checkpoint, monitor='val_accuracy', save_best_only=True, mode='auto',verbose=1, period=1)
-    early_stopping_callback = EarlyStopping(monitor='val_accuracy', mode='max', restore_best_weights=True, verbose=1)
+#    save_weights_callback = ModelCheckpoint(config.weights_file, monitor='val_accuracy',save_best_only=True, save_weights_only=True, verbose=2, mode='auto', period=1)
+#    early_stopping_callback = EarlyStopping(monitor='val_accuracy', mode='max', restore_best_weights=True, verbose=1)
     csv_logger_callback = CSVLogger('training_log.csv', separator=';', append=False)
 
     # params
@@ -34,10 +34,12 @@ def train(model, labels, train_images, val_images):
     
 
     print("TRAINING MODEL")
-    history = model.fit(x=train_data_generator, epochs=config.total_epochs, steps_per_epoch=steps_train, verbose=1, validation_data=val_data_generator, shuffle=True,
-                                        validation_steps=steps_val, callbacks=[save_weights_callback, save_model_callback, 
-                                        #    early_stopping_callback, 
-                                            csv_logger_callback])
+    history = model.fit(x=train_data_generator, epochs=config.total_epochs, steps_per_epoch=steps_train, 
+                        verbose=1, validation_data=val_data_generator, shuffle=True, validation_steps=steps_val, 
+                        callbacks=[save_model_callback, 
+                                    # save_weights_callback,
+                                    # early_stopping_callback, 
+                                    csv_logger_callback])
 
 #    print("SAVING WEIGHTS TO " + config.weights_file)
 #    model.save_weights(config.weights_file, True)

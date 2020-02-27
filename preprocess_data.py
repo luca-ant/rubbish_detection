@@ -40,11 +40,6 @@ def read_image_as_array(image_name):
     return image_array
 
 
-
-
-
-
-
 def load_dataset_from_dir(d):
 
     images = []
