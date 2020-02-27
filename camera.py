@@ -7,12 +7,17 @@ from predict_rubbish_lite import predict_class_lite
 from preprocess_data import load_labels
 
 
+
 height = config.input_shape[0]
 width = config.input_shape[1]
 
-cam = cv2.VideoCapture(0)
-bgs = cv2.createBackgroundSubtractorMOG2()
 
+
+
+
+cam = cv2.VideoCapture(0)
+#bgs = cv2.createBackgroundSubtractorMOG2()
+bgs = cv2.createBackgroundSubtractorKNN()
 labels = load_labels(config.labels_file)
 
 if os.path.isfile(config.model_lite_file):
@@ -21,20 +26,34 @@ else:
     print("Model lite not found in {}".format(config.model_lite_file))
     exit(1)
 
+
 while(1):
 
-    for i in range(5):
-        cam.grab()
-    ret, frame = cam.read()
+#    for i in range(5):
+#        cam.grab()
+    _, frame = cam.read()
 
-    cv2.imshow('frame',frame)
+    
+    cv2.imshow('Frame', frame)
+    
+    frame = cv2.GaussianBlur(frame,(5,5),0)
 
-    k = cv2.waitKey(5) & 0xff
+#########################
+#    fgMask = bgs.apply(frame)
+#    cv2.imshow('Mask', fgMask)
+#    mask = np.stack((fgMask,fgMask, fgMask), axis=2)
+#    image = frame * mask
+#    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+#    cv2.imshow('Detect', image)
+#########################
+
+    k = cv2.waitKey(30) & 0xff
     if k == 27: # ESC
         break
 
     if k == 32: #SPACE
-        img = cv2.resize(frame, (width, height))
+        img = frame 
+        img = cv2.resize(img, (width, height))
         predictions = predict_class_lite(interpreter, img ,labels)
 
         print(' '+'='*21+' ')
