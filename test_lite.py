@@ -97,6 +97,7 @@ if __name__ == "__main__":
             print('Lite model saved to '+config.model_dir_lite+current_model_lite_file)
 
             interpreter = tf.compat.v2.lite.Interpreter(model_path=config.model_dir_lite+current_model_lite_file)
+
             test(name, interpreter, test_images, labels)
     else:
         print("Model not found in {}".format(config.model_file))
