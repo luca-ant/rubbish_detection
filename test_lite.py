@@ -74,10 +74,11 @@ if __name__ == "__main__":
 
     optimizations = {}
 
-    optimizations['default_opt'] =[tf.lite.Optimize.DEFAULT]
-    optimizations['size_opt'] =[tf.lite.Optimize.OPTIMIZE_FOR_SIZE]
-    optimizations['lat_opt'] =[tf.lite.Optimize.OPTIMIZE_FOR_LATENCY]
-    optimizations['all_opt'] =[tf.lite.Optimize.OPTIMIZE_FOR_SIZE, tf.lite.Optimize.OPTIMIZE_FOR_LATENCY]
+    optimizations['none_opt'] =[]
+    optimizations['default_opt'] =[tf.compat.v1.lite.Optimize.DEFAULT]
+    optimizations['size_opt'] =[tf.compat.v1.lite.Optimize.OPTIMIZE_FOR_SIZE]
+    optimizations['lat_opt'] =[tf.compat.v1.lite.Optimize.OPTIMIZE_FOR_LATENCY]
+    optimizations['all_opt'] =[tf.compat.v1.lite.Optimize.OPTIMIZE_FOR_SIZE, tf.lite.Optimize.OPTIMIZE_FOR_LATENCY]
 
 
 
@@ -89,6 +90,8 @@ if __name__ == "__main__":
 
             converter = tf.compat.v1.lite.TFLiteConverter.from_keras_model_file(config.model_file)
             converter.experimental_new_converter = True
+            converter.experimental_new_quantizer = True
+            
             converter.optimizations = opts
             tflite_model = converter.convert()
             
