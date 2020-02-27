@@ -88,7 +88,7 @@ if __name__ == "__main__":
             current_model_lite_file = 'rd_model_lite_'+name +'.tflite'
 
             converter = tf.compat.v1.lite.TFLiteConverter.from_keras_model_file(config.model_file)
-             converter.experimental_new_converter = True
+            converter.experimental_new_converter = True
             converter.optimizations = opts
             tflite_model = converter.convert()
             
