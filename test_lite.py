@@ -26,7 +26,7 @@ def test(name, interpreter, test_images, labesl):
     accurate_count = 0
     total_time = 0
 
-    bar = Bar('Testing lite model', max=len(test_images))
+    bar = Bar('Testing model lite '+ name, max=len(test_images))
 
     for image_name in test_images:
         true_label = re.split(r'[0-9]', image_name)[0]
