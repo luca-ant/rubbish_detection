@@ -12,13 +12,12 @@ height = config.input_shape[0]
 width = config.input_shape[1]
 
 
-
-
-
 cam = cv2.VideoCapture(0)
-#bgs = cv2.createBackgroundSubtractorMOG2()
-bgs = cv2.createBackgroundSubtractorKNN()
+
 labels = load_labels(config.labels_file)
+
+#bgs = cv2.createBackgroundSubtractorMOG2()
+#bgs = cv2.createBackgroundSubtractorKNN()
 
 if os.path.isfile(config.model_lite_file):
     interpreter = tf.compat.v2.lite.Interpreter(model_path=config.model_lite_file)
