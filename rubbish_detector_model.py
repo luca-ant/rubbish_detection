@@ -13,7 +13,7 @@ from keras.layers import Dense, Flatten, BatchNormalization, Dropout
 
 
 def create_nn(num_classes):
-    print("CREATING MODEL"+config.model_name)
+    print("CREATING MODEL: "+config.model_name)
 
     model = Sequential(name=config.model_name)
     

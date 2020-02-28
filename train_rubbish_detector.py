@@ -16,7 +16,7 @@ def train(model, labels, train_images, val_images):
     if not os.path.isdir(config.train_log_dir):
         os.makedirs(config.train_log_dir)
     if not os.path.isdir(config.models_dir):
-        os.makedirs(config.model_dir)
+        os.makedirs(config.models_dir)
 
     # callbacks
     save_model_callback = ModelCheckpoint(config.model_checkpoint, monitor='val_accuracy', save_best_only=True, mode='auto',verbose=1, period=1)
