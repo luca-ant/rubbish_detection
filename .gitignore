@@ -2,7 +2,5 @@ __pycache__/
 *.pyc
 venv/
 data/
-model/
+models/
 models_lite/
-weights/
-
