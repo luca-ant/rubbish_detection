@@ -20,7 +20,6 @@ def predict_class_lite(interpreter, image_array, labels):
 
     img_batch = np.expand_dims(image_array, 0)
 
-
     img_batch = np.float32(img_batch)
 
     interpreter.set_tensor(input_details[0]['index'], img_batch)
@@ -46,8 +45,8 @@ if __name__ == "__main__":
     Image.fromarray(np.uint8(image_array)).show()
     labels = load_labels(config.labels_file)
 
-    if os.path.isfile(config.model_lite_file):
-        interpreter = tf.compat.v2.lite.Interpreter(model_path=config.model_lite_file)
+    if os.path.isfile(config.model_tflite_file):
+        interpreter = tf.compat.v2.lite.Interpreter(model_path=config.model_tflite_file)
         predictions = predict_class_lite(interpreter, image_array,labels)
 
         print(' '+'='*21+' ')
@@ -57,7 +56,7 @@ if __name__ == "__main__":
         predicted_label = list(predictions.keys())[0]
         print("\nLABEL", predicted_label)
     else:
-        print("Model lite not found in {}".format(config.model_lite_file))
+        print("Model lite not found in {}".format(config.model_tflite_file))
 
 
 

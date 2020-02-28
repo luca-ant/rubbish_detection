@@ -61,8 +61,8 @@ if __name__ == "__main__":
     test_images = load_test_dataset(config.test_dir)
 
 
-    if os.path.isfile(config.model_lite_file):
-        interpreter = tf.compat.v2.lite.Interpreter(model_path=config.model_lite_file)
+    if os.path.isfile(config.model_tflite_file):
+        interpreter = tf.compat.v2.lite.Interpreter(model_path=config.model_tflite_file)
         evaluate(interpreter, labels, test_images)
     else:
-        print("Model not found in {}".format(config.model_file_lite))
+        print("Model not found in {}".format(config.model_tffile_lite))

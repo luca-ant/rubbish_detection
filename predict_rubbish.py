@@ -29,7 +29,7 @@ if __name__ == "__main__":
     labels = load_labels(config.labels_file)
   
     if os.path.isfile(config.model_file):
-        model = rubbish_detector_model.restore_model(config.model_file, config.weights_file, len(labels))
+        model = rubbish_detector_model.restore_model(config.model_file)
         predictions = predict_class(model, image_array, labels)
         print(' '+'='*21+' ')
         for k, v in predictions.items():

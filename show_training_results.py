@@ -1,39 +1,33 @@
+import config
 import pandas as pd
 import matplotlib.pyplot as plt
 
-logfile='training_log.csv'
+logfile=config.train_log_file
+model_name = ''.join(config.train_log_file.split('/')[-1].split('_')[0])
 results = pd.read_csv(logfile, sep=';')
 print(results)
 
 
 
-show1 = 'val_accuracy'
-show2 = 'val_loss'
+plt.title("Trainig results of "+model_name+": accuracy")
 
-
-t = results['epoch']
-data1 = results[show1]
-data2 = results[show2]
-
-fig, ax1 = plt.subplots()
-
-plt.title("Trainig results")
-color = 'tab:red'
-ax1.set_xlabel('epoch')
-ax1.set_ylabel(show1, color=color)
-ax1.plot(t, data1, color=color)
-ax1.tick_params(axis='y', labelcolor=color)
-
-ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
-
-color = 'tab:blue'
-ax2.set_ylabel(show2, color=color)  # we already handled the x-label with ax1
-ax2.plot(t, data2, color=color)
-ax2.tick_params(axis='y', labelcolor=color)
-
-fig.tight_layout()  # otherwise the right y-label is slightly clipped
-
-
+x = results['epoch']
+plt.plot(x, results['accuracy'])
+plt.plot(x, results['val_accuracy'])
+plt.legend(['train_accuracy', 'val_accuracy'], loc='lower right')
+plt.xlabel('epoch')
 #plt.show()
-plt.savefig("training.png")
+plt.savefig(config.train_log_dir+ model_name+"_accuracy.png")
 
+
+plt.clf()
+
+
+plt.title("Trainig results of "+model_name+": loss")
+x = results['epoch']
+plt.plot(x, results['loss'])
+plt.plot(x, results['val_loss'])
+plt.legend(['train_loss', 'val_loss'], loc='upper right')
+plt.xlabel('epoch')
+#plt.show()
+plt.savefig(config.train_log_dir+ model_name+"_loss.png")

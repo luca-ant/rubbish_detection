@@ -19,10 +19,10 @@ labels = load_labels(config.labels_file)
 #bgs = cv2.createBackgroundSubtractorMOG2()
 #bgs = cv2.createBackgroundSubtractorKNN()
 
-if os.path.isfile(config.model_lite_file):
-    interpreter = tf.compat.v2.lite.Interpreter(model_path=config.model_lite_file)
+if os.path.isfile(config.model_tflite_file):
+    interpreter = tf.compat.v2.lite.Interpreter(model_path=config.model_tflite_file)
 else:
-    print("Model lite not found in {}".format(config.model_lite_file))
+    print("Model lite not found in {}".format(config.model_tflite_file))
     exit(1)
 
 

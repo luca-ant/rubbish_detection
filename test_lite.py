@@ -4,18 +4,10 @@ import cv2
 import config
 import re
 import os
-import time
+import time 
 from progress.bar import Bar
 from predict_rubbish_lite import predict_class_lite
 from preprocess_data import decode_label, load_labels, load_test_dataset, read_image_as_array
-
-
-height = config.input_shape[0]
-width = config.input_shape[1]
-
-
-
-
 
 
 def test(name, interpreter, test_images, labesl):
@@ -26,12 +18,13 @@ def test(name, interpreter, test_images, labesl):
     accurate_count = 0
     total_time = 0
 
-    bar = Bar('Testing model lite '+ name, max=len(test_images))
+    bar = Bar('Testing tflite model '+ name, max=len(test_images))
 
     for image_name in test_images:
         true_label = re.split(r'[0-9]', image_name)[0]
         image_array = read_image_as_array(config.test_dir+image_name)
-
+        if 'full-int' in name:
+            image_array = image_array.astype(np.uint8)
         img_batch = np.expand_dims(image_array, 0)
 
 
@@ -58,12 +51,12 @@ def test(name, interpreter, test_images, labesl):
 
     accuracy = accurate_count * 1.0 / len(test_images)
     print('\nACCURACY: {:.2f}%'.format(accuracy *100))
-    print('TIME/IMAGE: {:.7f} s'.format(total_time /len(test_images)))
+    print('TIME/IMAGE: {:.6f} sec\n'.format(total_time /len(test_images)))
 
     os.makedirs(config.test_res_dir_lite, exist_ok=True)
     with open(config.test_res_dir_lite+name+'_results.txt', "w") as f:
         f.write('ACCURACY: {:.2f}%\n'.format(accuracy *100))
-        f.write('TIME/IMAGE: {:.75f} s'.format(total_time /len(test_images)))
+        f.write('TIME/IMAGE: {:.6} sec'.format(total_time /len(test_images)))
 
 
 
@@ -72,38 +65,21 @@ if __name__ == "__main__":
     labels = load_labels(config.labels_file)
     test_images = load_test_dataset(config.test_dir)
 
-    optimizations = {}
 
-    optimizations['none_opt'] =[]
-    optimizations['default_opt'] =[tf.compat.v1.lite.Optimize.DEFAULT]
-    optimizations['size_opt'] =[tf.compat.v1.lite.Optimize.OPTIMIZE_FOR_SIZE]
-    optimizations['lat_opt'] =[tf.compat.v1.lite.Optimize.OPTIMIZE_FOR_LATENCY]
-    optimizations['all_opt'] =[tf.compat.v1.lite.Optimize.OPTIMIZE_FOR_SIZE, tf.lite.Optimize.OPTIMIZE_FOR_LATENCY]
+    if os.path.isdir(config.models_tflite_dir):
 
+        with os.scandir(config.models_tflite_dir) as entries:
 
+            for e in entries:
+                if e.is_file():
+                    model_tflite_file = e.name
+                    model_name = ''.join(model_tflite_file.split('.')[0])
 
-    if os.path.isfile(config.model_file):
+                    interpreter = tf.compat.v2.lite.Interpreter(model_path=config.models_dir_tflite + model_tflite_file)
 
-        for name, opts in optimizations.items():
-
-            current_model_lite_file = 'rd_model_lite_'+name +'.tflite'
-
-            converter = tf.compat.v1.lite.TFLiteConverter.from_keras_model_file(config.model_file)
-            converter.experimental_new_converter = True
-            converter.experimental_new_quantizer = True
-            
-            converter.optimizations = opts
-            tflite_model = converter.convert()
-            
-            os.makedirs(config.model_dir_lite, exist_ok=True)
-            open(config.model_dir_lite+current_model_lite_file, "wb").write(tflite_model)
-            print('Lite model saved to '+config.model_dir_lite+current_model_lite_file)
-
-            interpreter = tf.compat.v2.lite.Interpreter(model_path=config.model_dir_lite+current_model_lite_file)
-
-            test(name, interpreter, test_images, labels)
+                    test(model_name, interpreter, test_images, labels)
     else:
-        print("Model not found in {}".format(config.model_file))
+        print("Models lite not found in {}".format(config.models_dir_tflite))
 
 
 
