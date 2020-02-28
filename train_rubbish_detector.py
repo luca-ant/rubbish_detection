@@ -1,5 +1,6 @@
 import config
 import os
+import shutil
 import rubbish_detector_model 
 from preprocess_data import data_generator, load_labels, load_train_dataset, load_val_dataset
 from keras.engine.saving import load_model, save_model
