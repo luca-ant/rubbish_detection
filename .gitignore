@@ -3,4 +3,4 @@ __pycache__/
 venv/
 data/
 models/
-models_lite/
+models_tflite/
