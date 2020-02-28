@@ -2,7 +2,8 @@ import tensorflow as tf
 import os
 import config
 from keras.applications import ResNet50
-from keras.applications.inception_resnet_v2 import InceptionResNetV2
+from keras.applications.mobilenet_v2 import MobileNetV2
+from keras.applications.inception_v3 import InceptionV3
 from keras.models import Sequential, load_model
 from keras.optimizers import Adam, RMSprop
 from keras.layers import Dense, Flatten, BatchNormalization, Dropout
@@ -18,9 +19,11 @@ def create_nn(num_classes):
     model = Sequential(name=config.model_name)
     
     if config.model_name == 'resnet50':
-        model.add(ResNet50(pooling='avg', weights='imagenet'))  # input_shape = (224,224,3)⏎
-    if config.model_name == '':
-        model.add(InceptionResNetV2(pooling='avg', weights='imagenet'))  # input_shape = (299,299,3)⏎
+        model.add(ResNet50(pooling='avg', weights='imagenet'))  # input_shape = (224,224,3)
+    if config.model_name == 'inceptionV3':
+        model.add(InceptionV3(pooling='avg', weights='imagenet'))  # input_shape = (299,299,3)
+    if config.model_name == 'mobilenetV2':
+        model.add(MobileNetV2(pooling='avg', weights='imagenet'))  # input_shape = (224,224,3)
 
     model.add(BatchNormalization())
     model.add(Dense(500, activation='relu'))

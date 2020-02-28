@@ -3,14 +3,15 @@ model_name = 'resnet50'
 input_shape=(224,224,3)
 ####################
 
-#####  #####
-#model_name = ''
+### INCEPTION_V3 ###
+#model_name = 'inceptionV3'
 #input_shape=(299,299,3)
 ####################
 
-
-
-
+### MOBILENET_V2 ###
+#model_name = 'mobilenetV2'
+#input_shape=(224,224,3)
+####################
 
 
 working_dir="./"
