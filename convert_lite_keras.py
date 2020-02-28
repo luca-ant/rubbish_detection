@@ -13,7 +13,8 @@ labels = load_labels(config.labels_file)
 converter = tf.compat.v1.lite.TFLiteConverter.from_keras_model_file(config.model_file)
 
 #Optimization
-#converter.optimizations = [tf.lite.Optimize.OPTIMIZE_FOR_SIZE]
+converter.optimizations = [tf.lite.Optimize.DEFAULT]
+converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
 
 tflite_model = converter.convert()
 

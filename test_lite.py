@@ -58,12 +58,12 @@ def test(name, interpreter, test_images, labesl):
 
     accuracy = accurate_count * 1.0 / len(test_images)
     print('\nACCURACY: {:.2f}%'.format(accuracy *100))
-    print('TIME/IMAGE: {:.5f} us'.format(total_time /len(test_images)))
+    print('TIME/IMAGE: {:.7f} s'.format(total_time /len(test_images)))
 
     os.makedirs(config.test_res_dir_lite, exist_ok=True)
     with open(config.test_res_dir_lite+name+'_results.txt', "w") as f:
         f.write('ACCURACY: {:.2f}%\n'.format(accuracy *100))
-        f.write('TIME/IMAGE: {:.5f} us'.format(total_time /len(test_images)))
+        f.write('TIME/IMAGE: {:.75f} s'.format(total_time /len(test_images)))
 
 
 
