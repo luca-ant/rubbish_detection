@@ -33,7 +33,7 @@ def create_nn(num_classes):
 
 #    model.layers[0].trainable = False
     
-    opt = Adam(lr=0.001)
+    opt = Adam(lr=0.0001)
     model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
 
     model.summary()
@@ -46,7 +46,7 @@ def restore_model(model_file):
     print("LOADING MODEL from "+ model_file)
     model = load_model(model_file)
 
-    opt = Adam(lr=0.001)
+    opt = Adam(lr=0.0001)
     model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
     model.summary()
 
