@@ -17,12 +17,16 @@ def create_nn(num_classes):
     
     if config.model_name == 'resnet50':
         model.add(ResNet50(pooling='avg', weights='imagenet'))  # input_shape = (224,224,3)
+        opt = Adam(lr=0.0001)
     if config.model_name == 'inceptionV3':
         model.add(InceptionV3(pooling='avg', weights='imagenet'))  # input_shape = (299,299,3)
+        opt = Adam(lr=0.0001)
     if config.model_name == 'mobilenetV2':
         model.add(MobileNetV2(pooling='avg', weights='imagenet'))  # input_shape = (224,224,3)
+        opt = Adam(lr=0.0001)
     if config.model_name == 'vgg19':
         model.add(VGG19(pooling='avg', weights='imagenet'))  # input_shape = (224,224,3)
+        opt = Adam(lr=0.0001)
 
     model.add(BatchNormalization())
     model.add(Dense(500, activation='relu'))
@@ -33,7 +37,6 @@ def create_nn(num_classes):
 
 #    model.layers[0].trainable = False
     
-    opt = Adam(lr=0.0001)
     model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
 
     model.summary()
