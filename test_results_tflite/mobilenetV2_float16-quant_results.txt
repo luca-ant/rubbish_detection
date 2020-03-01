@@ -1,0 +1,2 @@
+MODEL: mobilenetV2_float16-quantACCURACY: 85.64%
+TIME/IMAGE: 20.4855 ms

@@ -1,0 +1,2 @@
+MODEL: resnet50_float16-quantACCURACY: 76.06%
+TIME/IMAGE: 101.962 ms

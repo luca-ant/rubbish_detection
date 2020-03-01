@@ -50,13 +50,16 @@ def test(name, interpreter, test_images, labesl):
     bar.finish()
 
     accuracy = accurate_count * 1.0 / len(test_images)
-    print('\nACCURACY: {:.2f}%'.format(accuracy *100))
-    print('TIME/IMAGE: {:.6f} sec\n'.format(total_time /len(test_images)))
+    total_time = total_time * 1000
+    print('\nMODEL: {}'.format(model_name))
+    print('ACCURACY: {:.2f}%'.format(accuracy *100))
+    print('TIME/IMAGE: {:.6f} ms\n'.format(total_time /len(test_images)))
 
-    os.makedirs(config.test_res_dir_lite, exist_ok=True)
-    with open(config.test_res_dir_lite+name+'_results.txt', "w") as f:
+    os.makedirs(config.test_res_dir_tflite, exist_ok=True)
+    with open(config.test_res_dir_tflite+name+'_results.txt', "w") as f:
+        f.write('MODEL: {}'.format(model_name))
         f.write('ACCURACY: {:.2f}%\n'.format(accuracy *100))
-        f.write('TIME/IMAGE: {:.6} sec'.format(total_time /len(test_images)))
+        f.write('TIME/IMAGE: {:.6} ms'.format(total_time /len(test_images)))
 
 
 
@@ -75,11 +78,11 @@ if __name__ == "__main__":
                     model_tflite_file = e.name
                     model_name = ''.join(model_tflite_file.split('.')[0])
 
-                    interpreter = tf.compat.v2.lite.Interpreter(model_path=config.models_dir_tflite + model_tflite_file)
+                    interpreter = tf.compat.v2.lite.Interpreter(model_path=config.models_tflite_dir + model_tflite_file)
 
                     test(model_name, interpreter, test_images, labels)
     else:
-        print("Models lite not found in {}".format(config.models_dir_tflite))
+        print("Models lite not found in {}".format(config.models_tflite_dir))
 
 
 

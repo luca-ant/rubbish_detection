@@ -1,0 +1,2 @@
+MODEL: resnet50_weights-quantACCURACY: 74.47%
+TIME/IMAGE: 645.98 ms
