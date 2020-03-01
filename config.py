@@ -13,8 +13,8 @@ model_name = 'mobilenetV2'
 input_shape=(224,224,3)
 ########################
 
-####### VGG19 #######
-#model_name = 'vgg19'
+####### VGG16 #######
+#model_name = 'vgg16'
 #input_shape=(224,224,3)
 #####################
 
