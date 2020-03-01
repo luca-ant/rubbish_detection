@@ -57,7 +57,7 @@ def test(name, interpreter, test_images, labesl):
 
     os.makedirs(config.test_res_dir_tflite, exist_ok=True)
     with open(config.test_res_dir_tflite+name+'_results.txt', "w") as f:
-        f.write('MODEL: {}'.format(model_name))
+        f.write('MODEL: {}\n'.format(model_name))
         f.write('ACCURACY: {:.2f}%\n'.format(accuracy *100))
         f.write('TIME/IMAGE: {:.6} ms'.format(total_time /len(test_images)))
 
