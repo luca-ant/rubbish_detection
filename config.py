@@ -18,6 +18,10 @@ input_shape=(224,224,3)
 #input_shape=(224,224,3)
 #####################
 
+##### NASNETMOBILE #####
+#model_name = 'nasnetmobile'
+#input_shape=(224,224,3)
+########################
 
 
 working_dir="./"
