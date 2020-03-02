@@ -1,5 +1,6 @@
 import tensorflow as tf
 import os
+import traceback
 import config
 import numpy as np
 from preprocess_data import load_labels, load_test_dataset, read_image_as_array
@@ -48,8 +49,8 @@ opt['_weights-quant'] = {
                     }
 
 opt['_int-quant'] = {
-#                    'optimizations':[tf.compat.v1.lite.Optimize.OPTIMIZE_FOR_SIZE], 
-                    'optimizations':[tf.compat.v1.lite.Optimize.DEFAULT], 
+                    'optimizations':[tf.compat.v1.lite.Optimize.OPTIMIZE_FOR_SIZE], 
+#                    'optimizations':[tf.compat.v1.lite.Optimize.DEFAULT], 
                     'supported_types':[],
                     'supported_ops': [tf.compat.v1.lite.OpsSet.TFLITE_BUILTINS],
                     'representative_dataset': rep_data_gen,
@@ -58,8 +59,8 @@ opt['_int-quant'] = {
                     }
 
 opt['_full-int-quant'] = {
-#                    'optimizations':[tf.compat.v1.lite.Optimize.OPTIMIZE_FOR_SIZE], 
-                    'optimizations':[tf.compat.v1.lite.Optimize.DEFAULT], 
+                    'optimizations':[tf.compat.v1.lite.Optimize.OPTIMIZE_FOR_SIZE], 
+#                    'optimizations':[tf.compat.v1.lite.Optimize.DEFAULT], 
                     'supported_types':[],
 #                    'supported_ops': [tf.compat.v1.lite.OpsSet.TFLITE_BUILTINS_INT8, tf.compat.v1.lite.OpsSet.TFLITE_BUILTINS],
                     'supported_ops': [tf.compat.v1.lite.OpsSet.TFLITE_BUILTINS_INT8],
@@ -89,21 +90,26 @@ if __name__ == "__main__":
                     model_name = ''.join(model_file.split('.')[0])
 
                     for o, params in opt.items():
-                        model_tflite_file = model_name + o + '.tflite'
-                        converter = tf.compat.v1.lite.TFLiteConverter.from_keras_model_file(config.models_dir+model_file)
-                        print("\nCONVERTING {} to {}\n".format(model_file, model_tflite_file))
-                        #Optimization
-                        converter.optimizations = params['optimizations']
-                        converter.target_spec.supported_types = params['supported_types']
-                        converter.target_spec.supported_ops = params['supported_ops']
-                        converter.representative_dataset = params['representative_dataset']
-                        converter.inference_input_type = params['inference_input_type']
-                        converter.inference_output_type = params['inference_output_type']
-                        converter.allow_custom_ops = True;
-                        tflite_model = converter.convert()
+                        try:
+                            model_tflite_file = model_name + o + '.tflite'
+                            converter = tf.compat.v1.lite.TFLiteConverter.from_keras_model_file(config.models_dir+model_file)
+                            print("\nCONVERTING {} TO {}\n".format(model_file, model_tflite_file))
+                            #Optimization
+                            converter.optimizations = params['optimizations']
+                            converter.target_spec.supported_types = params['supported_types']
+                            converter.target_spec.supported_ops = params['supported_ops']
+                            converter.representative_dataset = params['representative_dataset']
+                            converter.inference_input_type = params['inference_input_type']
+                            converter.inference_output_type = params['inference_output_type']
+                            converter.allow_custom_ops = True;
+                            tflite_model = converter.convert()
 
-                        os.makedirs(config.models_tflite_dir, exist_ok=True)
-                        open(config.models_tflite_dir+model_tflite_file, "wb").write(tflite_model)
-                        print('Lite model saved to '+ config.models_tflite_dir+model_tflite_file)
+                            os.makedirs(config.models_tflite_dir, exist_ok=True)
+                            open(config.models_tflite_dir+model_tflite_file, "wb").write(tflite_model)
+                            print('Lite model saved to '+ config.models_tflite_dir+model_tflite_file)
+                        except:
+                            traceback.print_exc()
+                            print('ERROR IN CONVERSION from {} to {}'.format(model_file, model_tflite_file))
+
     else:
         print("Models not found in {}".format(config.models_dir))
