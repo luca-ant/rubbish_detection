@@ -1,6 +1,6 @@
 ##### RESNET50 #####
-#model_name = 'resnet50'
-#input_shape=(224,224,3)
+model_name = 'resnet50'
+input_shape=(224,224,3)
 ####################
 
 ##### INCEPTION_V3 #####
@@ -9,8 +9,8 @@
 ########################
 
 ##### MOBILENET_V2 #####
-model_name = 'mobilenetv2'
-input_shape=(224,224,3)
+#model_name = 'mobilenetv2'
+#input_shape=(224,224,3)
 ########################
 
 ####### VGG16 #######
