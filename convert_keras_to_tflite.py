@@ -81,18 +81,23 @@ opt['_float16-quant'] = {'optimizations':[tf.compat.v1.lite.Optimize.DEFAULT],
 if __name__ == "__main__":
 
 
-    if os.path.isdir(config.models_dir):
+#    if os.path.isdir(config.models_dir):
+    if os.path.isfile(config.model_file):
 
-        with os.scandir(config.models_dir) as entries:
-            for e in entries:
-                if e.is_file():
-                    model_file = e.name
-                    model_name = ''.join(model_file.split('.')[0])
+#        with os.scandir(config.models_dir) as entries:
+#            for e in entries:
+#                if e.is_file():
+#                    model_file = e.name
+#                    model_name = ''.join(model_file.split('.')[0])
+                    
+                    model_name = config.model_name
+                    model_file = model_name+'.h5'
 
                     for o, params in opt.items():
                         try:
                             model_tflite_file = model_name + o + '.tflite'
-                            converter = tf.compat.v1.lite.TFLiteConverter.from_keras_model_file(config.models_dir+model_file)
+#                            converter = tf.compat.v1.lite.TFLiteConverter.from_keras_model_file(config.models_dir+model_file)
+                            converter = tf.compat.v1.lite.TFLiteConverter.from_keras_model_file(config.model_file)
                             print("\nCONVERTING {} TO {}\n".format(model_file, model_tflite_file))
                             #Optimization
                             converter.optimizations = params['optimizations']
@@ -112,4 +117,5 @@ if __name__ == "__main__":
                             print('ERROR IN CONVERSION from {} to {}'.format(model_file, model_tflite_file))
 
     else:
-        print("Models not found in {}".format(config.models_dir))
+#        print("Models not found in {}".format(config.models_dir))
+        print("Model not found in {}".format(config.models_file))
