@@ -1,2 +1,0 @@
-MODEL: mobilenetV2ACCURACY: 85.64%
-TIME/IMAGE: 20.2756 ms

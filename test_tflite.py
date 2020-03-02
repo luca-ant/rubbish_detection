@@ -53,13 +53,15 @@ def test(name, interpreter, test_images, labesl):
     total_time = total_time * 1000
     print('\nMODEL: {}'.format(model_name))
     print('ACCURACY: {:.2f}%'.format(accuracy *100))
-    print('TIME/IMAGE: {:.6f} ms\n'.format(total_time /len(test_images)))
+    print('TIME/IMAGE: {:.3f} ms\n'.format(total_time /len(test_images)))
 
-    os.makedirs(config.test_res_dir_tflite, exist_ok=True)
-    with open(config.test_res_dir_tflite+name+'_results.txt', "w") as f:
-        f.write('MODEL: {}\n'.format(model_name))
-        f.write('ACCURACY: {:.2f}%\n'.format(accuracy *100))
-        f.write('TIME/IMAGE: {:.6} ms'.format(total_time /len(test_images)))
+    os.makedirs(config.test_res_tflite_dir, exist_ok=True)
+    with open(config.test_res_tflite_file, "a") as f:
+        f.write('{};{:.2f}%;{:.3} ms\n'.format(model_name, accuracy*100,total_time/len(test_images)))
+#    with open(config.test_res_tflite_dir+name+'_results.txt', "w") as f:
+#        f.write('MODEL: {}\n'.format(model_name))
+#        f.write('ACCURACY: {:.2f}%\n'.format(accuracy *100))
+#        f.write('TIME/IMAGE: {:.6} ms'.format(total_time /len(test_images)))
 
 
 
@@ -71,6 +73,9 @@ if __name__ == "__main__":
 
     if os.path.isdir(config.models_tflite_dir):
 
+        os.makedirs(config.test_res_tflite_dir, exist_ok=True)
+        with open(config.test_res_tflite_file, "w") as f:
+            f.write('{};{};{}\n'.format("Model name", "Accuracy (%)", "Time/image (ms)"))
         with os.scandir(config.models_tflite_dir) as entries:
 
             for e in entries:

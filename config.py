@@ -27,7 +27,8 @@ input_shape=(224,224,3)
 working_dir="./"
 models_dir = working_dir + "models/"
 models_tflite_dir = working_dir + "models_tflite/"
-test_res_dir_tflite = working_dir + "test_results_tflite/"
+test_res_tflite_dir = working_dir + "test_results_tflite/"
+test_res_tflite_file = test_res_tflite_dir + "test_results_tflite.csv"
 train_log_dir = working_dir + "training_logs/"
 
 dataset_dir = working_dir+'data/dataset/'

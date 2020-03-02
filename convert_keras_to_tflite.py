@@ -48,7 +48,8 @@ opt['_weights-quant'] = {
                     }
 
 opt['_int-quant'] = {
-                    'optimizations':[tf.compat.v1.lite.Optimize.OPTIMIZE_FOR_SIZE], 
+#                    'optimizations':[tf.compat.v1.lite.Optimize.OPTIMIZE_FOR_SIZE], 
+                    'optimizations':[tf.compat.v1.lite.Optimize.DEFAULT], 
                     'supported_types':[],
                     'supported_ops': [tf.compat.v1.lite.OpsSet.TFLITE_BUILTINS],
                     'representative_dataset': rep_data_gen,
@@ -57,8 +58,10 @@ opt['_int-quant'] = {
                     }
 
 opt['_full-int-quant'] = {
-                    'optimizations':[tf.compat.v1.lite.Optimize.OPTIMIZE_FOR_SIZE], 
+#                    'optimizations':[tf.compat.v1.lite.Optimize.OPTIMIZE_FOR_SIZE], 
+                    'optimizations':[tf.compat.v1.lite.Optimize.DEFAULT], 
                     'supported_types':[],
+#                    'supported_ops': [tf.compat.v1.lite.OpsSet.TFLITE_BUILTINS_INT8, tf.compat.v1.lite.OpsSet.TFLITE_BUILTINS],
                     'supported_ops': [tf.compat.v1.lite.OpsSet.TFLITE_BUILTINS_INT8],
                     'representative_dataset': rep_data_gen,
                     'inference_input_type': tf.uint8,
@@ -88,7 +91,7 @@ if __name__ == "__main__":
                     for o, params in opt.items():
                         model_tflite_file = model_name + o + '.tflite'
                         converter = tf.compat.v1.lite.TFLiteConverter.from_keras_model_file(config.models_dir+model_file)
-
+                        print("\nCONVERTING {} to {}\n".format(model_file, model_tflite_file))
                         #Optimization
                         converter.optimizations = params['optimizations']
                         converter.target_spec.supported_types = params['supported_types']
@@ -96,7 +99,7 @@ if __name__ == "__main__":
                         converter.representative_dataset = params['representative_dataset']
                         converter.inference_input_type = params['inference_input_type']
                         converter.inference_output_type = params['inference_output_type']
-
+                        converter.allow_custom_ops = True;
                         tflite_model = converter.convert()
 
                         os.makedirs(config.models_tflite_dir, exist_ok=True)

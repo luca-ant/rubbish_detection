@@ -1,0 +1,2 @@
+Model name;Accuracy (%);Time/image (ms)
+mobilenetv2_weights-quant;63.56%;62.6 ms
