@@ -18,10 +18,10 @@ def create_nn(num_classes):
     if config.model_name == 'resnet50':
         model.add(ResNet50(pooling='avg', weights='imagenet'))  # input_shape = (224,224,3)
         opt = Adam(lr=0.0001)
-    if config.model_name == 'inceptionV3':
+    if config.model_name == 'inceptionv3':
         model.add(InceptionV3(pooling='avg', weights='imagenet'))  # input_shape = (299,299,3)
         opt = Adam(lr=0.0001)
-    if config.model_name == 'mobilenetV2':
+    if config.model_name == 'mobilenetv2':
         model.add(MobileNetV2(pooling='avg', weights='imagenet'))  # input_shape = (224,224,3)
         opt = Adam(lr=0.0001)
     if config.model_name == 'nasnetmobile':
