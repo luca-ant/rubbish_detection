@@ -1,5 +1,6 @@
 import tensorflow as tf
 import os
+import re
 import traceback
 import config
 import numpy as np
@@ -12,10 +13,11 @@ def rep_data_gen():
     n = 0
     x_image = list()
     for image_name in load_test_dataset(config.test_dir):
-        n += 1
+        true_label = re.split(r'[0-9]', image_name)[0]
+#        n += 1
 #            img = image.load_img(dataset_dir + image_name, target_size=config.input_shape)
 #            img = image.img_to_array(img)
-        image_array = read_image_as_array(config.test_dir + image_name)
+        image_array = read_image_as_array(config.test_dir + true_label+ '/'+ image_name)
 #        image_array = np.expand_dims(image_array,0)
         x_image.append(image_array)
     images = tf.data.Dataset.from_tensor_slices(np.array(x_image)).batch(1)

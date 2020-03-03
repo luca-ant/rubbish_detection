@@ -65,4 +65,4 @@ if __name__ == "__main__":
         interpreter = tf.compat.v2.lite.Interpreter(model_path=config.model_tflite_file)
         evaluate(interpreter, labels, test_images)
     else:
-        print("Model not found in {}".format(config.model_tffile_lite))
+        print("Model lite not found in {}".format(config.model_tffile_lite))

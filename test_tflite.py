@@ -25,7 +25,7 @@ def test(name, interpreter, test_images, labesl):
 
     for image_name in test_images:
         true_label = re.split(r'[0-9]', image_name)[0]
-        image_array = read_image_as_array(config.test_dir+image_name)
+        image_array = read_image_as_array(config.test_dir+true_label+'/'+image_name)
         if 'full-int' in name:
             image_array = image_array.astype(np.uint8)
         img_batch = np.expand_dims(image_array, 0)
