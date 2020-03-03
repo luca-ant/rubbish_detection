@@ -4,7 +4,6 @@ import config
 from keras.applications.resnet import ResNet50
 from keras.applications.mobilenet_v2 import MobileNetV2
 from keras.applications.inception_v3 import InceptionV3
-from keras.applications.vgg16 import VGG16
 from keras.applications.nasnet import NASNetMobile
 from keras.models import Sequential, load_model
 from keras.optimizers import Adam
@@ -25,13 +24,9 @@ def create_nn(num_classes):
     if config.model_name == 'mobilenetV2':
         model.add(MobileNetV2(pooling='avg', weights='imagenet'))  # input_shape = (224,224,3)
         opt = Adam(lr=0.0001)
-    if config.model_name == 'vgg16':
-        model.add(VGG16(pooling='avg', weights='imagenet'))  # input_shape = (224,224,3)
-        opt = Adam(lr=0.001)
     if config.model_name == 'nasnetmobile':
         model.add(NASNetMobile(pooling='avg', weights='imagenet'))  # input_shape = (224,224,3)
         opt = Adam(lr=0.0001)
-
 
     model.add(BatchNormalization())
     model.add(Dense(500, activation='relu'))

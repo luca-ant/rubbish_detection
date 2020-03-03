@@ -13,11 +13,6 @@ input_shape=(299,299,3)
 #input_shape=(224,224,3)
 ########################
 
-####### VGG16 #######
-#model_name = 'vgg16'
-#input_shape=(224,224,3)
-#####################
-
 ##### NASNETMOBILE #####
 #model_name = 'nasnetmobile'
 #input_shape=(224,224,3)
