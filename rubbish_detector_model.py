@@ -28,10 +28,11 @@ def create_nn(num_classes):
         model.add(NASNetMobile(pooling='avg', weights='imagenet'))  # input_shape = (224,224,3)
         opt = Adam(lr=0.0001)
 
-    model.add(BatchNormalization())
+    model.add(Dropout(0.2))
     model.add(Dense(500, activation='relu'))
-    model.add(BatchNormalization())
+    model.add(Dropout(0.2))
     model.add(Dense(250, activation='relu'))
+    model.add(Dropout(0.2))
     model.add(BatchNormalization())
     model.add(Dense(num_classes, activation='softmax'))
 

@@ -3,6 +3,7 @@ import os
 import shutil
 import rubbish_detector_model 
 from preprocess_data import data_generator, load_labels, load_train_dataset, load_val_dataset
+from keras.preprocessing.image import ImageDataGenerator
 from keras.engine.saving import load_model, save_model
 from keras.callbacks import ModelCheckpoint, Callback, EarlyStopping, CSVLogger, ReduceLROnPlateau
 
@@ -30,10 +31,31 @@ def train(model, labels, train_images, val_images):
     steps_val = (len(val_images) // config.batch_size) + 1
 
     # prepare train and val data generator
-    train_data_generator = data_generator(config.train_dir, labels, train_images, config.batch_size)
-    val_data_generator = data_generator(config.val_dir, labels, val_images, config.batch_size)
-    
+    #train_data_generator = data_generator(config.train_dir, labels, train_images, config.batch_size)
+    #val_data_generator = data_generator(config.val_dir, labels, val_images, config.batch_size)
+    image_gen_train = ImageDataGenerator(
+                    rescale=1./255,
+                    rotation_range=45,
+                    width_shift_range=.15,
+                    height_shift_range=.15,
+                    horizontal_flip=True,
+                    zoom_range=0.5
+                    ) 
 
+    train_data_generator = image_gen_train.flow_from_directory(batch_size=config.batch_size,
+                                                         directory=config.train_dir,
+                                                         shuffle=True,
+                                                         target_size=config.input_shape,
+                                                         class_mode='categorical',
+                                                         classes=labels
+                                                         )
+    image_gen_val = ImageDataGenerator(rescale=1./255)
+    val_data_gen = image_gen_val.flow_from_directory(batch_size=config.batch_size,
+                                                     directory=config.val_dir,
+                                                     target_size=config.input_shape,
+                                                     class_mode='categorical',
+                                                     classes=labels
+                                                     )
     print("TRAINING MODEL")
     history = model.fit(x=train_data_generator, epochs=config.total_epochs, steps_per_epoch=steps_train, 
                         verbose=1, validation_data=val_data_generator, shuffle=True, validation_steps=steps_val, 
