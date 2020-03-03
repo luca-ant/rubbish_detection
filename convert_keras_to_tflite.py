@@ -49,8 +49,8 @@ opt['_weights-quant'] = {
                     }
 
 opt['_int-quant'] = {
-                    'optimizations':[tf.compat.v1.lite.Optimize.OPTIMIZE_FOR_SIZE], 
-#                    'optimizations':[tf.compat.v1.lite.Optimize.DEFAULT], 
+#                    'optimizations':[tf.compat.v1.lite.Optimize.OPTIMIZE_FOR_SIZE], 
+                    'optimizations':[tf.compat.v1.lite.Optimize.DEFAULT], 
                     'supported_types':[],
                     'supported_ops': [tf.compat.v1.lite.OpsSet.TFLITE_BUILTINS],
                     'representative_dataset': rep_data_gen,
@@ -59,10 +59,9 @@ opt['_int-quant'] = {
                     }
 
 opt['_full-int-quant'] = {
-                    'optimizations':[tf.compat.v1.lite.Optimize.OPTIMIZE_FOR_SIZE], 
-#                    'optimizations':[tf.compat.v1.lite.Optimize.DEFAULT], 
+#                    'optimizations':[tf.compat.v1.lite.Optimize.OPTIMIZE_FOR_SIZE], 
+                    'optimizations':[tf.compat.v1.lite.Optimize.DEFAULT], 
                     'supported_types':[],
-#                    'supported_ops': [tf.compat.v1.lite.OpsSet.TFLITE_BUILTINS_INT8, tf.compat.v1.lite.OpsSet.TFLITE_BUILTINS],
                     'supported_ops': [tf.compat.v1.lite.OpsSet.TFLITE_BUILTINS_INT8],
                     'representative_dataset': rep_data_gen,
                     'inference_input_type': tf.uint8,

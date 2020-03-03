@@ -15,6 +15,9 @@ def test(name, interpreter, test_images, labesl):
     input_details = interpreter.get_input_details()
     output_details = interpreter.get_output_details()
 
+    print('intput ', input_details)
+    print('output', output_details)
+
     accurate_count = 0
     total_time = 0
 

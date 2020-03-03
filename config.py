@@ -1,11 +1,11 @@
 ##### RESNET50 #####
-model_name = 'resnet50'
-input_shape=(224,224,3)
+#model_name = 'resnet50'
+#input_shape=(224,224,3)
 ####################
 
 ##### INCEPTION_V3 #####
-#model_name = 'inceptionv3'
-#input_shape=(299,299,3)
+model_name = 'inceptionv3'
+input_shape=(299,299,3)
 ########################
 
 ##### MOBILENET_V2 #####
