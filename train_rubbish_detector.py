@@ -21,18 +21,18 @@ def train(model, labels, train_images, val_images):
         os.makedirs(config.models_dir)
 
     # callbacks
-    save_model_callback = ModelCheckpoint(config.model_checkpoint, monitor='val_loss', save_best_only=True, mode='auto',verbose=1, period=1)
+    save_model_callback = ModelCheckpoint(config.model_checkpoint, monitor='val_accuracy', save_best_only=True, mode='auto',verbose=1, period=1)
 #    early_stopping_callback = EarlyStopping(monitor='val_accuracy', mode='max', restore_best_weights=True, verbose=1)
     csv_logger_callback = CSVLogger(config.train_log_file, separator=';', append=False)
-    reduce_lr_callback = ReduceLROnPlateau(monitor='val_loss', mode='auto', factor=0.5, patience=5, min_lr=0.000001, verbose=1)
+    reduce_lr_callback = ReduceLROnPlateau(monitor='val_accuracy', mode='auto', factor=0.5, patience=5, min_lr=0.000001, verbose=1)
 
     # params
     steps_train = (len(train_images) // config.batch_size) + 1
     steps_val = (len(val_images) // config.batch_size) + 1
 
     # prepare train and val data generator
-    #train_data_generator = data_generator(config.train_dir, labels, train_images, config.batch_size)
-    #val_data_generator = data_generator(config.val_dir, labels, val_images, config.batch_size)
+    #train_data_gen = data_generator(config.train_dir, labels, train_images, config.batch_size)
+    #val_data_gen = data_generator(config.val_dir, labels, val_images, config.batch_size)
     image_gen_train = ImageDataGenerator(
                     rescale=1./255,
                     rotation_range=45,
@@ -42,7 +42,7 @@ def train(model, labels, train_images, val_images):
                     zoom_range=0.5
                     ) 
 
-    train_data_generator = image_gen_train.flow_from_directory(batch_size=config.batch_size,
+    train_data_gen = image_gen_train.flow_from_directory(batch_size=config.batch_size,
                                                          directory=config.train_dir,
                                                          shuffle=True,
                                                          target_size=config.input_shape,
@@ -57,8 +57,8 @@ def train(model, labels, train_images, val_images):
                                                      classes=labels
                                                      )
     print("TRAINING MODEL")
-    history = model.fit(x=train_data_generator, epochs=config.total_epochs, steps_per_epoch=steps_train, 
-                        verbose=1, validation_data=val_data_generator, shuffle=True, validation_steps=steps_val, 
+    history = model.fit(x=train_data_gen, epochs=config.total_epochs, steps_per_epoch=steps_train, 
+                        verbose=1, validation_data=val_data_gen, shuffle=True, validation_steps=steps_val, 
                         callbacks=[save_model_callback, 
                                     # early_stopping_callback, 
                                     reduce_lr_callback,
