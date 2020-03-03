@@ -20,18 +20,18 @@ def load_labels(labels_file):
     return labels
 
 
-def read_image_as_array(image_name):
+def read_image_as_array(image_path):
 
     height = config.input_shape[0]
     width = config.input_shape[1]
 
     # load with Pillow
-    img = image.load_img(image_name, target_size=config.input_shape)
+    img = image.load_img(image_path, target_size=config.input_shape)
 #    img.show()
     image_array = image.img_to_array(img)
 
     # load with opencv
-#    img_o = cv2.imread(image_name)
+#    img_o = cv2.imread(image_path)
 #    img_o = cv2.resize(img_o, (width, height))
 #    image_array = cv2.cvtColor(img_o,cv2.COLOR_BGR2RGB)
 #    cv2.imshow('image', img_o)
@@ -46,8 +46,11 @@ def load_dataset_from_dir(d):
 
     with os.scandir(d) as entries:
         for e in entries:
-            if e.is_file():
-                images.append(e.name)
+            if e.is_dir():
+                with os.scandir(e) as files:
+                    for f in files:
+                        if f.is_file():
+                            images.append(f.name)
     random.shuffle(images) 
     return images
 

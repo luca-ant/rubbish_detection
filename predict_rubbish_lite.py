@@ -39,9 +39,9 @@ def predict_class_lite(interpreter, image_array, labels):
 
 if __name__ == "__main__":
     
-    image_name = '/home/luca/Desktop/rubbish_detection/data/dataset/test/glass405.jpg'
+    image_path = '/home/luca/Desktop/rubbish_detection/data/dataset/test/glass405.jpg'
 
-    image_array = read_image_as_array(image_name)
+    image_array = read_image_as_array(image_path)
     Image.fromarray(np.uint8(image_array)).show()
     labels = load_labels(config.labels_file)
 

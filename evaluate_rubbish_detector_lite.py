@@ -26,7 +26,7 @@ def evaluate(interpreter, labels, test_images):
     bar = Bar('Evaluating images', max=len(test_images))
     for image_name in test_images:
         true_label = re.split(r'[0-9]', image_name)[0]
-        image_array = read_image_as_array(config.test_dir+image_name)
+        image_array = read_image_as_array(config.test_dir+true_label+'/'+image_name)
 
         img_batch = np.expand_dims(image_array, 0)
 

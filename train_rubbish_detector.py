@@ -45,14 +45,15 @@ def train(model, labels, train_images, val_images):
     train_data_gen = image_gen_train.flow_from_directory(batch_size=config.batch_size,
                                                          directory=config.train_dir,
                                                          shuffle=True,
-                                                         target_size=config.input_shape,
+                                                         target_size=(config.input_shape[0],config.input_shape[1]),
                                                          class_mode='categorical',
                                                          classes=labels
                                                          )
+
     image_gen_val = ImageDataGenerator(rescale=1./255)
     val_data_gen = image_gen_val.flow_from_directory(batch_size=config.batch_size,
                                                      directory=config.val_dir,
-                                                     target_size=config.input_shape,
+                                                     target_size=(config.input_shape[0],config.input_shape[1]),
                                                      class_mode='categorical',
                                                      classes=labels
                                                      )
@@ -85,7 +86,7 @@ if __name__ == "__main__":
     labels = load_labels(config.labels_file)
     train_images = load_train_dataset(config.train_dir)
     val_images = load_val_dataset(config.val_dir)
-
+    
     if os.path.isfile(config.model_checkpoint):
         model = rubbish_detector_model.restore_model(config.model_file)
     else:
