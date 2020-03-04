@@ -37,7 +37,7 @@ def read_image_as_array(image_path):
 #    cv2.imshow('image', img_o)
 #    k = cv2.waitKey(0)
 
-    return image_array / 255.
+    return image_array * (1. / 255)
 
 
 def load_dataset_from_dir(d):
