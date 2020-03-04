@@ -1,6 +1,1 @@
 Model name;Accuracy (%);Time/image (ms)
-resnet50_float16-quant;92.29%;90.8 ms
-mobilenetv2_weights-quant;63.56%;73.7 ms
-resnet50_weights-quant;90.16%;6.12e+02 ms
-mobilenetv2_int-quant;84.31%;1.07e+03 ms
-mobilenetv2_float16-quant;85.11%;19.0 ms
