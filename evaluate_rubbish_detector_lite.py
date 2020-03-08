@@ -28,6 +28,9 @@ def evaluate(interpreter, labels, test_images):
         true_label = re.split(r'[0-9]', image_name)[0]
         image_array = read_image_as_array(config.test_dir+true_label+'/'+image_name)
 
+        if 'full-int' in config.model_tflite_file:
+            image_array = image_array.astype(np.uint8)
+
         img_batch = np.expand_dims(image_array, 0)
 
 
@@ -37,6 +40,10 @@ def evaluate(interpreter, labels, test_images):
         interpreter.invoke()
 
         output_data = interpreter.get_tensor(output_details[0]['index'])
+
+
+        if 'full-int' in config.model_tflite_file:
+            output_data = output_data.astype(np.float32)/255.
 
 #       predictions = dict(zip(labels, list(output_data[0])))
 #       predictions = dict(sorted(predictions.items(), key=lambda item: item[1], reverse=True))

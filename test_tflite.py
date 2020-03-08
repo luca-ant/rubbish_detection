@@ -40,6 +40,8 @@ def test(name, interpreter, test_images, labesl):
 
         output_data = interpreter.get_tensor(output_details[0]['index'])
 
+        if 'full-int' in name:
+            output_data = output_data.astype(np.float32)/255.
 #       predictions = dict(zip(labels, list(output_data[0])))
 #       predictions = dict(sorted(predictions.items(), key=lambda item: item[1], reverse=True))
 #       print(' '+'='*21+' ')

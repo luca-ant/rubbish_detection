@@ -13,7 +13,7 @@ def predict_class(model, image_array, labels):
     img_batch = np.expand_dims(image_array, 0)
 
     output_data = model.predict(x=img_batch, verbose=1,)
-#    print('output_data', output_data[0])
+    print('output_data:', output_data[0], "type:", type(output_data[0][0]))
 
     predictions = dict(zip(labels, list(output_data[0])))
     predictions = dict(sorted(predictions.items(), key=lambda item: item[1], reverse=True))
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     
     image_path = '/home/luca/Desktop/rubbish_detection/data/dataset/test/glass/glass405.jpg'
     image_array = read_image_as_array(image_path)
-    Image.fromarray(np.uint8(image_array)).show()
+    Image.fromarray(np.uint8(image_array*255)).show()
     labels = load_labels(config.labels_file)
   
     if os.path.isfile(config.model_file):
