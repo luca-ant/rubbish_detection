@@ -23,6 +23,13 @@ source venv/bin/activate
 python3 -m pip install -r requirements.txt
 ```
 
+## Download dataset
+Run the script ```download_dataset.py``` to download the dataset in the correct structure.
+
+```
+python download_dataset.py
+```
+
 ## Configuration
 
 Change the file config.py and uncomment the model that you prefer.
