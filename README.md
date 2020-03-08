@@ -1,10 +1,5 @@
 # Rubbish detector
 
-<p align="center">
-  <img width=350px src="https://github.com/luca-ant/WhatsSee/blob/master/static/img/logo.png?raw=true">
-</p>
-Rubbish detector is a image classification application, based on a neural network built with keras.
-
 ## Getting started
 
 * Clone repository
@@ -30,6 +25,7 @@ python3 -m pip install -r requirements.txt
 
 ## Configuration
 
+Change the file config.py and uncomment the model that you prefer.
 
 ## Running
 
