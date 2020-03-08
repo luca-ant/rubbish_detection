@@ -21,7 +21,7 @@ def rep_data_gen():
 #        image_array = np.expand_dims(image_array,0)
         x_image.append(image_array)
     images = tf.data.Dataset.from_tensor_slices(np.array(x_image)).batch(1)
-
+    
     for i in images.take(config.batch_size):
         yield [i]
         #if n == config.batch_size:
