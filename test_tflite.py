@@ -17,6 +17,7 @@ def test(name, interpreter, test_images, labesl):
 
     print('intput ', input_details)
     print('output', output_details)
+    target_shape = input_details[0]['shape'][1:]
 
     accurate_count = 0
     total_time = 0
@@ -25,7 +26,7 @@ def test(name, interpreter, test_images, labesl):
 
     for image_name in test_images:
         true_label = re.split(r'[0-9]', image_name)[0]
-        image_array = read_image_as_array(config.test_dir+true_label+'/'+image_name)
+        image_array = read_image_as_array(config.test_dir+true_label+'/'+image_name, target_shape=target_shape)
         if 'full-int' in name:
             image_array = image_array.astype(np.uint8)
         img_batch = np.expand_dims(image_array, 0)

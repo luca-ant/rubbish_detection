@@ -1,5 +1,6 @@
 import tensorflow as tf
 import os
+import sys
 import cv2
 import numpy as np
 import time
@@ -50,7 +51,7 @@ if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: {} PATH_TO_YOUR_IMAGE".format(sys.argv[0]))
         exit(1)
-
+    image_path = sys.argv[1]
     image_array = read_image_as_array(image_path)
     Image.fromarray(np.uint8(image_array*255)).show()
     labels = load_labels(config.labels_file)

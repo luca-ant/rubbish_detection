@@ -1,6 +1,2 @@
 Model name;Accuracy (%);Time/image (ms)
-mobilenetv2_weights-quant;34.04%;72.5 ms
-mobilenetv2_int-quant;92.29%;8.26e+02 ms
-mobilenetv2_float16-quant;92.55%;16.4 ms
-mobilenetv2_full-int-quant;14.89%;7.88e+02 ms
-mobilenetv2;92.55%;17.2 ms
+inceptionv3_float16-quant;94.95%;1.47e+02 ms
