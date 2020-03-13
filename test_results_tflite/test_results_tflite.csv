@@ -1,21 +1,4 @@
 Model name;Accuracy (%);Time/image (ms)
-inceptionv3_float16-quant;94.95%;95.4 ms
-resnet50_float16-quant;94.68%;67.1 ms
-mobilenetv2_weights-quant;34.04%;58.5 ms
-inceptionv3_weights-quant;94.41%;8.37e+02 ms
-resnet50_weights-quant;95.21%;5.79e+02 ms
-mobilenetv2_int-quant;92.29%;7.02e+02 ms
-mobilenetv2_float16-quant;92.55%;15.9 ms
-nasnetmobile_int-quant;21.01%;1.25e+03 ms
-nasnetmobile;93.62%;51.8 ms
-resnet50_full-int-quant;15.96%;1.01e+04 ms
-nasnetmobile_full-int-quant;16.22%;1.51e+03 ms
-inceptionv3_full-int-quant;16.22%;1.49e+04 ms
-nasnetmobile_weights-quant;92.82%;1.44e+02 ms
-resnet50_int-quant;94.41%;1.03e+04 ms
-inceptionv3;94.95%;94.8 ms
-inceptionv3_int-quant;94.41%;1.2e+04 ms
-mobilenetv2_full-int-quant;16.22%;6.99e+02 ms
-mobilenetv2;92.55%;16.1 ms
-resnet50;94.68%;67.2 ms
-nasnetmobile_float16-quant;93.62%;51.7 ms
+inceptionv3_float16-quant;94.95;312.7143
+resnet50_float16-quant;94.68;70.76819
+mobilenetv2_weights-quant;34.04;66.04988

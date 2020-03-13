@@ -14,11 +14,11 @@ from preprocess_data import load_labels, decode_label, read_image_as_array
 
 def predict_class_lite(interpreter, image_array, labels):
 
-    interpreter.allocate_tensors()
     input_details = interpreter.get_input_details()
     output_details = interpreter.get_output_details()
 
     image_array = np.float32(image_array)
+    image_array = image_array / .255
 
     if 'full-int' in config.model_tflite_file:
         image_array = image_array.astype(np.uint8)

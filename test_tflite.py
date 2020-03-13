@@ -58,12 +58,12 @@ def test(name, interpreter, test_images, labesl):
     accuracy = accurate_count * 1.0 / len(test_images)
     total_time = total_time * 1000
     print('\nMODEL: {}'.format(model_name))
-    print('ACCURACY: {:.2f}%'.format(accuracy *100))
-    print('TIME/IMAGE: {:.3f} ms\n'.format(total_time /len(test_images)))
+    print('ACCURACY: {:.2f}'.format(accuracy *100))
+    print('TIME/IMAGE: {:.9f}\n'.format(total_time /len(test_images)))
 
     os.makedirs(config.test_res_tflite_dir, exist_ok=True)
     with open(config.test_res_tflite_file, "a") as f:
-        f.write('{};{:.2f}%;{:.3} ms\n'.format(model_name, accuracy*100,total_time/len(test_images)))
+        f.write('{};{:.2f};{:.9}\n'.format(model_name, accuracy*100,total_time/len(test_images)))
 #    with open(config.test_res_tflite_dir+name+'_results.txt', "w") as f:
 #        f.write('MODEL: {}\n'.format(model_name))
 #        f.write('ACCURACY: {:.2f}%\n'.format(accuracy *100))

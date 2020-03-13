@@ -11,6 +11,8 @@ from preprocess_data import data_generator, load_labels, load_train_dataset, loa
 
 def predict_class(model, image_array, labels):
 
+    image_array = np.float32(image_array)
+    image_array = image_array / .255
     img_batch = np.expand_dims(image_array, 0)
 
     output_data = model.predict(x=img_batch, verbose=1,)

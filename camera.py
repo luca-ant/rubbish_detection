@@ -21,6 +21,7 @@ labels = load_labels(config.labels_file)
 
 if os.path.isfile(config.model_tflite_file):
     interpreter = tf.compat.v2.lite.Interpreter(model_path=config.model_tflite_file)
+    interpreter.allocate_tensors()
 else:
     print("Model lite not found in {}".format(config.model_tflite_file))
     exit(1)
@@ -53,7 +54,7 @@ while(1):
     if k == 32: #SPACE
         img = frame 
         img = cv2.resize(img, (width, height))
-        predictions = predict_class_lite(interpreter, img ,labels)
+        predictions = predict_class_lite(interpreter, img, labels)
 
         print(' '+'='*21+' ')
         for k, v in predictions.items():
