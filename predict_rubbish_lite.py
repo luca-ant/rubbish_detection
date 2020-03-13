@@ -58,6 +58,7 @@ if __name__ == "__main__":
 
     if os.path.isfile(config.model_tflite_file):
         interpreter = tf.compat.v2.lite.Interpreter(model_path=config.model_tflite_file)
+        interpreter.allocate_tensors()
         predictions = predict_class_lite(interpreter, image_array,labels)
 
         print(' '+'='*21+' ')
