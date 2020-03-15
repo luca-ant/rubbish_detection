@@ -1,6 +1,6 @@
 ##### RESNET50 #####
-model_name = 'resnet50'
-input_shape=(224,224,3)
+#model_name = 'resnet50'
+#input_shape=(224,224,3)
 ####################
 
 ##### INCEPTION_V3 #####
@@ -14,8 +14,8 @@ input_shape=(224,224,3)
 ########################
 
 ##### NASNETMOBILE #####
-#model_name = 'nasnetmobile'
-#input_shape=(224,224,3)
+model_name = 'nasnetmobile'
+input_shape=(224,224,3)
 ########################
 
 
@@ -35,7 +35,7 @@ labels_file = dataset_dir+'labels.txt'
 
 model_file = models_dir + model_name+".h5"
 model_checkpoint = models_dir + model_name+"_checkpoint.h5"
-model_tflite_file = models_tflite_dir + model_name+".tflite"
+model_tflite_file = models_tflite_dir + model_name+"tflite"
 train_log_file = train_log_dir + model_name+"_log.csv"
 
 batch_size = 16

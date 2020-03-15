@@ -67,6 +67,8 @@ def test(name, interpreter, test_images, labesl):
     with open(config.test_res_tflite_dir+model +'.csv', "a") as f:
         f.write('{};{:.2f};{:.9}\n'.format(model_name, accuracy*100,total_time/len(test_images)))
 
+    with open(config.test_res_tflite_file, "a") as f:
+        f.write('{};{:.2f};{:.9}\n'.format(model_name, accuracy*100,total_time/len(test_images)))
 
 
 if __name__ == "__main__":
@@ -77,6 +79,9 @@ if __name__ == "__main__":
 
     if os.path.isdir(config.models_tflite_dir):
         os.makedirs(config.test_res_tflite_dir, exist_ok=True)
+
+        with open(config.test_res_tflite_file, "w") as f:
+            f.write('{};{};{}\n'.format("Model name", "Accuracy (%)", "Time/image (ms)"))
         with os.scandir(config.models_tflite_dir) as entries:
 
             for e in entries:
@@ -86,6 +91,7 @@ if __name__ == "__main__":
                     model = model_name.split('_')[0]
                 with open(config.test_res_tflite_dir + model+'.csv', "w") as f:
                     f.write('{};{};{}\n'.format("Model name", "Accuracy (%)", "Time/image (ms)"))
+
         with os.scandir(config.models_tflite_dir) as entries:
 
             for e in entries:

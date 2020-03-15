@@ -26,7 +26,7 @@ def evaluate(model, labels, test_images):
     steps = len(test_images) // config.batch_size + 1
     results = model.evaluate(x=test_data_gen, verbose=1, steps=steps)
     accuracy = results[1]
-    print('\nACCURACY: {:.2f}%'.format(accuracy *100))
+    print('\nMODEL: {}\nACCURACY: {:.2f}%'.format(config.model_name, accuracy *100))
         
 
 

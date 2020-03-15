@@ -32,7 +32,6 @@ def evaluate(interpreter, labels, test_images):
             image_array = image_array * 255.
             image_array = image_array.astype(np.uint8)
 
-        print(image_array)
         img_batch = np.expand_dims(image_array, 0)
 
 
@@ -59,7 +58,7 @@ def evaluate(interpreter, labels, test_images):
         bar.next()
     bar.finish()
     accuracy = accurate_count * 1.0 / len(test_images)
-    print('\nACCURACY: {:.2f}%'.format(accuracy *100))
+    print('\nMODEL: {}\nACCURACY: {:.2f}%'.format(config.model_name, accuracy *100))
     return accuracy
 
 
