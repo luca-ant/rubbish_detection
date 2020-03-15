@@ -2,13 +2,15 @@ import config
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
+
 
 if os.path.isdir(config.train_log_dir):
 
     with os.scandir(config.train_log_dir) as entries:
 
         for e in entries:
-            if e.is_file():
+            if e.is_file() and e.name.endswith('.csv'):
                 logfile = e.name
                 model_name = ''.join(logfile.split('_')[0])
 

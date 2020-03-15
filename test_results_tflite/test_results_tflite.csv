@@ -1,4 +1,0 @@
-Model name;Accuracy (%);Time/image (ms)
-inceptionv3_float16-quant;94.95;312.7143
-resnet50_float16-quant;94.68;70.76819
-mobilenetv2_weights-quant;34.04;66.04988

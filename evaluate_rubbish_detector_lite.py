@@ -29,8 +29,10 @@ def evaluate(interpreter, labels, test_images):
         image_array = read_image_as_array(config.test_dir+true_label+'/'+image_name)
 
         if 'full-int' in config.model_tflite_file:
+            image_array = image_array * 255.
             image_array = image_array.astype(np.uint8)
 
+        print(image_array)
         img_batch = np.expand_dims(image_array, 0)
 
 

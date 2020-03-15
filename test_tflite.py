@@ -28,9 +28,10 @@ def test(name, interpreter, test_images, labesl):
         true_label = re.split(r'[0-9]', image_name)[0]
         image_array = read_image_as_array(config.test_dir+true_label+'/'+image_name, target_shape=target_shape)
         if 'full-int' in name:
+            image_array = image_array * 255.
             image_array = image_array.astype(np.uint8)
-        img_batch = np.expand_dims(image_array, 0)
 
+        img_batch = np.expand_dims(image_array, 0)
 
         interpreter.set_tensor(input_details[0]['index'], img_batch)
         
@@ -62,12 +63,9 @@ def test(name, interpreter, test_images, labesl):
     print('TIME/IMAGE: {:.9f}\n'.format(total_time /len(test_images)))
 
     os.makedirs(config.test_res_tflite_dir, exist_ok=True)
-    with open(config.test_res_tflite_file, "a") as f:
+    model = model_name.split('_')[0]
+    with open(config.test_res_tflite_dir+model +'.csv', "a") as f:
         f.write('{};{:.2f};{:.9}\n'.format(model_name, accuracy*100,total_time/len(test_images)))
-#    with open(config.test_res_tflite_dir+name+'_results.txt', "w") as f:
-#        f.write('MODEL: {}\n'.format(model_name))
-#        f.write('ACCURACY: {:.2f}%\n'.format(accuracy *100))
-#        f.write('TIME/IMAGE: {:.6} ms'.format(total_time /len(test_images)))
 
 
 
@@ -78,10 +76,16 @@ if __name__ == "__main__":
 
 
     if os.path.isdir(config.models_tflite_dir):
-
         os.makedirs(config.test_res_tflite_dir, exist_ok=True)
-        with open(config.test_res_tflite_file, "w") as f:
-            f.write('{};{};{}\n'.format("Model name", "Accuracy (%)", "Time/image (ms)"))
+        with os.scandir(config.models_tflite_dir) as entries:
+
+            for e in entries:
+                if e.is_file():
+                    model_tflite_file = e.name
+                    model_name = ''.join(model_tflite_file.split('.')[0])
+                    model = model_name.split('_')[0]
+                with open(config.test_res_tflite_dir + model+'.csv', "w") as f:
+                    f.write('{};{};{}\n'.format("Model name", "Accuracy (%)", "Time/image (ms)"))
         with os.scandir(config.models_tflite_dir) as entries:
 
             for e in entries:

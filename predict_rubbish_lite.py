@@ -18,9 +18,10 @@ def predict_class_lite(interpreter, image_array, labels):
     output_details = interpreter.get_output_details()
 
     image_array = np.float32(image_array)
-    image_array = image_array / .255
+    image_array = image_array / 255.
 
     if 'full-int' in config.model_tflite_file:
+        image_array = image_array * 255.
         image_array = image_array.astype(np.uint8)
 
     img_batch = np.expand_dims(image_array, 0)
