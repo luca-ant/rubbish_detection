@@ -1,0 +1,6 @@
+Model name;Accuracy (%);Time/image (ms)
+inceptionv3_float16-quant;94.95;95.1890445
+inceptionv3_weights-quant;94.41;947.533943
+inceptionv3_full-int-quant;94.41;15147.5687
+inceptionv3;94.95;95.4896605
+inceptionv3_int-quant;94.68;13570.8005
