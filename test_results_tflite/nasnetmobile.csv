@@ -1,6 +1,5 @@
 Model name;Accuracy (%);Time/image (ms)
-nasnetmobile_int-quant;81.12;1682.53442
 nasnetmobile;93.62;52.5782406
-nasnetmobile_full-int-quant;91.76;1642.171
+nasnetmobile_int-quant;91.76;1642.171
 nasnetmobile_weights-quant;92.82;119.740644
 nasnetmobile_float16-quant;93.62;49.9340283

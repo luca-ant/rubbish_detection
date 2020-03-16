@@ -9,29 +9,6 @@ from rubbish_detector_model import restore_model
 
 labels = load_labels(config.labels_file)
 
-def rep_data_gen_int():
-    n = 0
-    x_image = list()
-    for image_name in load_test_dataset(config.test_dir):
-        true_label = re.split(r'[0-9]', image_name)[0]
-#        n += 1
-#            img = image.load_img(dataset_dir + image_name, target_size=config.input_shape)
-#            img = image.img_to_array(img)
-        image_array = read_image_as_array(config.test_dir + true_label+ '/'+ image_name)
-        image_array = image_array * 255.
-        image_array = image_array.astype(np.uint8)
-
-#        image_array = np.expand_dims(image_array,0)
-        x_image.append(image_array)
-    images = tf.data.Dataset.from_tensor_slices(np.array(x_image)).batch(1)
-    
-    for i in images.take(config.batch_size):
-        yield [i]
-        #if n == config.batch_size:
-        #    yield [np.array(x_image)]
-        #    x_image = list()
-        #    n = 0
-
 def rep_data_gen():
     n = 0
     x_image = list()
@@ -72,17 +49,8 @@ opt['_weights-quant'] = {
                     'inference_output_type': None
                     }
 
-opt['_int-quant'] = {
-                    'optimizations':[tf.compat.v1.lite.Optimize.OPTIMIZE_FOR_SIZE], 
-#                    'optimizations':[tf.compat.v1.lite.Optimize.DEFAULT], 
-                    'supported_types':[],
-                    'supported_ops': [tf.compat.v1.lite.OpsSet.TFLITE_BUILTINS],
-                    'representative_dataset': rep_data_gen,
-                    'inference_input_type': None,
-                    'inference_output_type': None
-                    }
 
-opt['_full-int-quant'] = {
+opt['_int-quant'] = {
                     'optimizations':[tf.compat.v1.lite.Optimize.OPTIMIZE_FOR_SIZE], 
 #                    'optimizations':[tf.compat.v1.lite.Optimize.DEFAULT], 
                     'supported_types':[],
