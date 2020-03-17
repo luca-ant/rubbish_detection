@@ -60,7 +60,7 @@ def test(name, interpreter, test_images, labesl):
     total_time = total_time * 1000
     print('\nMODEL: {}'.format(model_name))
     print('ACCURACY: {:.2f}'.format(accuracy *100))
-    print('TIME/IMAGE: {:.9f}\n'.format(total_time /len(test_images)))
+    print('LATENCY: {:.9f}\n'.format(total_time /len(test_images)))
 
     os.makedirs(config.test_res_tflite_dir, exist_ok=True)
     model = model_name.split('_')[0]
@@ -81,7 +81,7 @@ if __name__ == "__main__":
         os.makedirs(config.test_res_tflite_dir, exist_ok=True)
 
         with open(config.test_res_tflite_file, "w") as f:
-            f.write('{};{};{}\n'.format("Model name", "Accuracy (%)", "Time/image (ms)"))
+            f.write('{};{};{}\n'.format("Model name", "Accuracy (%)", "Latency (ms)"))
         with os.scandir(config.models_tflite_dir) as entries:
 
             for e in entries:
@@ -90,7 +90,7 @@ if __name__ == "__main__":
                     model_name = ''.join(model_tflite_file.split('.')[0])
                     model = model_name.split('_')[0]
                 with open(config.test_res_tflite_dir + model+'.csv', "w") as f:
-                    f.write('{};{};{}\n'.format("Model name", "Accuracy (%)", "Time/image (ms)"))
+                    f.write('{};{};{}\n'.format("Model name", "Accuracy (%)", "Latency (ms)"))
 
         with os.scandir(config.models_tflite_dir) as entries:
 
