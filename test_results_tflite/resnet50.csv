@@ -1,4 +1,4 @@
-Model name;Accuracy (%);Time/image (ms)
+Model name;Accuracy (%);Latency (ms)
 resnet50_float16-quant;94.68;67.3590746
 resnet50_weights-quant;95.21;580.774094
 resnet50_int-quant;94.68;9216.80267

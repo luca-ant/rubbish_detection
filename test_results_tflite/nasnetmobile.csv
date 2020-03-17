@@ -1,4 +1,4 @@
-Model name;Accuracy (%);Time/image (ms)
+Model name;Accuracy (%);Latency (ms)
 nasnetmobile;93.62;52.5782406
 nasnetmobile_int-quant;91.76;1642.171
 nasnetmobile_weights-quant;92.82;119.740644

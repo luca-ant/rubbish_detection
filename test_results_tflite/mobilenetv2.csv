@@ -1,4 +1,4 @@
-Model name;Accuracy (%);Time/image (ms)
+Model name;Accuracy (%);Latency (ms)
 mobilenetv2_weights-quant;34.04;77.4806852
 mobilenetv2_float16-quant;92.55;16.0745909
 mobilenetv2_int-quant;92.02;701.529017
