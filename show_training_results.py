@@ -24,7 +24,7 @@ if os.path.isdir(config.train_log_dir):
 
                 fig, ax1 = plt.subplots()
 
-                plt.title("Trainig results of "+model_name+": accuracy")
+                plt.title("Training results of "+model_name+": accuracy")
                 ax1.set_xlabel('epoch')
                 ax1.set_ylabel('accuracy')
                 ax1.plot(x, results['accuracy'])
@@ -46,7 +46,7 @@ if os.path.isdir(config.train_log_dir):
 
                 fig, ax1 = plt.subplots()
 
-                plt.title("Trainig results of "+model_name+": loss")
+                plt.title("Training results of "+model_name+": loss")
                 ax1.set_xlabel('epoch')
                 ax1.set_ylabel('loss')
                 ax1.plot(x, results['loss'])
@@ -66,7 +66,7 @@ if os.path.isdir(config.train_log_dir):
                 plt.clf()
 
 
-                plt.title("Trainig results of "+model_name+": learning rate")
+                plt.title("Training results of "+model_name+": learning rate")
                 x = results['epoch']
                 plt.plot(x, results['lr'])
                 #plt.legend(['learning rate'], loc='upper right')
