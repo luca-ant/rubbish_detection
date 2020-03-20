@@ -30,6 +30,7 @@ if os.path.isdir(config.train_log_dir):
                 ax1.plot(x, results['accuracy'])
                 ax1.plot(x, results['val_accuracy'])
                 ax1.legend(['train_accuracy', 'val_accuracy'], loc='center right')
+                ax1.set_ylim(0.75,1)
                 ax1.tick_params(axis='y' )
                 ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
 
