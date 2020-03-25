@@ -20,7 +20,7 @@ def predict_class_lite(interpreter, image_array, labels):
     image_array = np.float32(image_array)
     image_array = image_array / 255.
 
-    if 'full-int' in config.model_tflite_file:
+    if 'int-quant' in config.model_tflite_file:
         image_array = image_array * 255.
         image_array = image_array.astype(np.uint8)
 
@@ -33,7 +33,7 @@ def predict_class_lite(interpreter, image_array, labels):
 
     output_data = interpreter.get_tensor(output_details[0]['index'])
 
-    if 'full-int' in config.model_tflite_file:
+    if 'int-quant' in config.model_tflite_file:
         output_data = output_data.astype(np.float32)/255.
 
     print('output_data:', output_data[0], "type:", type(output_data[0][0]))

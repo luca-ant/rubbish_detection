@@ -27,7 +27,7 @@ def test(name, interpreter, test_images, labesl):
     for image_name in test_images:
         true_label = re.split(r'[0-9]', image_name)[0]
         image_array = read_image_as_array(config.test_dir+true_label+'/'+image_name, target_shape=target_shape)
-        if 'full-int' in name:
+        if 'int-quant' in name:
             image_array = image_array * 255.
             image_array = image_array.astype(np.uint8)
 
@@ -42,7 +42,7 @@ def test(name, interpreter, test_images, labesl):
 
         output_data = interpreter.get_tensor(output_details[0]['index'])
 
-        if 'full-int' in name:
+        if 'int-quant' in name:
             output_data = output_data.astype(np.float32)/255.
 #       predictions = dict(zip(labels, list(output_data[0])))
 #       predictions = dict(sorted(predictions.items(), key=lambda item: item[1], reverse=True))
