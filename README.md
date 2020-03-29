@@ -31,14 +31,6 @@ python download_dataset.py
 ```
 
 
-### Download already trained keras models
-Download the zip archive containing all models and extract it in the main directory fo the repository. Use the following commands:
-
-```
-cd rubbish_detection
-wget https://github.com/luca-ant/rubbish_detection/releases/download/models/models.zip
-tar -xvf models_tflite.tgz
-```
 
 
 ## Configuration
@@ -73,7 +65,28 @@ python camera.py
 ```
 
 
-## Converting to Tensorflow Lite
+### Download already trained keras models
+Download the zip archive containing all models and extract it in the main directory fo the repository. Use the following commands:
+
+```
+cd rubbish_detection
+wget https://github.com/luca-ant/rubbish_detection/releases/download/models/models.zip
+tar -xvf models_tflite.tgz
+```
+
+
+## Training results
+
+| Model         | Accuracy |
+| :---          |   :---:  |
+| InceptionV3   |  94.95%  |
+| MobileNetV2   |  92.55%  |
+| NASNetMobile  |  93.62%  |
+| ResNet50      |  94.68%  |
+
+
+
+## Convert to Tensorflow Lite and optimize 
 
 
 To convert the model into tflite version run the script ```convert_keras_to_tflite.py```
@@ -104,7 +117,6 @@ python predict_rubbish_lite.py PATH_TO_YOUR_IMAGE
 python test_tflite.py
 ```
 
-
 ### Download already converted and optimized tflite models
 Download the tar archive containing all tflite models and extract it in the main directory fo the repository. Use the following commands:
 
@@ -114,14 +126,15 @@ wget https://github.com/luca-ant/rubbish_detection/releases/download/models_tfli
 tar -xvf models_tflite.tgz
 ```
 
-## Results
 
 
-| Model | Accuracy |
-| :---          |  :---: |
-| InceptionV3   | 94.95% |
-| MobileNetV2   | 92.55% |
-| NASNetMobile  | 93.62% |
-| ResNet50      | 94.68% |
+## Optimization results
 
+
+| Model         | Accuracy |
+| :---          |   :---:  |
+| InceptionV3   |  94.95%  |
+| MobileNetV2   |  92.55%  |
+| NASNetMobile  |  93.62%  |
+| ResNet50      |  94.68%  |
 
