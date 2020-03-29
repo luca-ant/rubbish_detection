@@ -77,7 +77,7 @@ tar -xvf models_tflite.tgz
 
 ## Training results
 
-| Model         | Accuracy |
+| Keras model   | Accuracy |
 | :---          |   :---:  |
 | InceptionV3   |  94.95%  |
 | MobileNetV2   |  92.55%  |
@@ -131,10 +131,22 @@ tar -xvf models_tflite.tgz
 ## Optimization results
 
 
-| Model         | Accuracy |
-| :---          |   :---:  |
-| InceptionV3   |  94.95%  |
-| MobileNetV2   |  92.55%  |
-| NASNetMobile  |  93.62%  |
-| ResNet50      |  94.68%  |
+| TFLite Model                          | Accuracy |
+| :---                                  |   :---:  |
+| InceptionV3                           |  94.95%  |
+| InceptionV3 float16 quantization      |  94.95%  |
+| InceptionV3 weights quantization      |  94.41%  |
+| InceptionV3 integer quantization      |  94.41%  |
+| MobileNetV2                           |  92.55%  |
+| MobileNetV2 float16 quantization      |  92.55%  |
+| MobileNetV2 weights quantization      |  34.04%  |
+| MobileNetV2 integer quantization      |  92.02%  |
+| NASNetMobile                          |  93.62%  |
+| NASNetMobile float16 quantization     |  93.62%  |
+| NASNetMobile weights quantization     |  92.82%  |
+| NASNetMobile integer quantization     |  91.76%  |
+| ResNet50                              |  94.68%  |
+| ResNet50 float16 quantization         |  94.68%  |
+| ResNet50 weights quantization         |  95.21%  |
+| ResNet50 integer quantization         |  94.68%  |
 
