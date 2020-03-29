@@ -31,7 +31,7 @@ python download_dataset.py
 ```
 
 
-## Download already trained keras models
+### Download already trained keras models
 Download the zip archive containing all models and extract it in the main directory fo the repository. Use the following commands:
 
 ```
@@ -47,7 +47,7 @@ Change the file ```config.py``` and uncomment the model that you prefer.
 
 ## Running
 
-* **Training:** After choose the model in the config.py file, run the script ```train_rubbish_detector.py```
+* **Training:** After choose the model in the config.py file, run the script ```train_rubbish_detector.py```. You'll find training history and data in ```training_logs``` directory.
 
 ```
 python train_rubbish_detector.py
@@ -105,7 +105,7 @@ python test_tflite.py
 ```
 
 
-## Download already converted and optimized tflite models
+### Download already converted and optimized tflite models
 Download the tar archive containing all tflite models and extract it in the main directory fo the repository. Use the following commands:
 
 ```
@@ -115,5 +115,13 @@ tar -xvf models_tflite.tgz
 ```
 
 ## Results
+
+
+| Model | Accuracy |
+| :---          |  :---: |
+| InceptionV3   | 94.95% |
+| MobileNetV2   | 92.55% |
+| NASNetMobile  | 93.62% |
+| ResNet50      | 94.68% |
 
 
