@@ -150,3 +150,7 @@ tar -xvf models_tflite.tgz
 | ResNet50 weights quantization         |  95.21%  |
 | ResNet50 integer quantization         |  94.68%  |
 
+
+## To be continued...
+TensorFlow Lite models can run also on a smartphone such as Andorid or iOS. See [Here](https://github.com/Fedeee9/rubbish_detection_app) for details!
+
