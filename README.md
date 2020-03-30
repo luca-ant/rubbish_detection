@@ -152,5 +152,5 @@ tar -xvf models_tflite.tgz
 
 
 ## To be continued...
-TensorFlow Lite models can run also on a smartphone such as Andorid or iOS. See [Here](https://github.com/Fedeee9/rubbish_detection_app) for details!
+TensorFlow Lite models can run also on a smartphone such as Andorid or iOS. See [here](https://github.com/Fedeee9/rubbish_detection_app) for details!
 
